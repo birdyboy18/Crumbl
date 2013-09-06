@@ -1,0 +1,134 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>Crumbl Test Lab</title>
+	<meta name="viewport" content="width=device-width" />
+
+	<meta name="HandheldFriendly" content="True" />
+	<meta name="MobileOptimized" content="320" />
+
+	<link rel="stylesheet" href="css/screen.css" />
+
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+
+	<!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <script>window.html5 || document.write('<script src="js/libs/html5shiv.js"><\/script>')</script>
+    <![endif]-->
+</head>
+<body>
+	<header role="banner">
+		<div>
+			<h1>Crumbl Test Facility</h1>
+		</div>
+	</header>
+
+	<div>
+		<section class="test event-handlers">
+			<h1>Event handlers</h1>
+			<div class="lab">
+				<p><button>Button that doesn't do anything</button></p>
+			</div>
+			<div class="triggers">
+				<button class="attach">Attach Event</button>
+				<button class="detach">Detach Event</button>
+			</div>
+		</section>
+
+		<section class="test class-handlers">
+			<h1>Class handler</h1>
+			<div class="lab">
+				<p>Nunc nunc augue, rhoncus et luctus feugiat, pellentesque eu metus. Maecenas dapibus erat id dui aliquam, sed ullamcorper nisl pellentesque. Integer tincidunt ultrices mauris a laoreet. Praesent fringilla a dui eget iaculis. Aliquam ut ante ac nunc adipiscing facilisis ultrices ac nisi. Sed semper lorem sapien, tempus volutpat nisl pellentesque pulvinar. Pellentesque ultricies placerat purus eu gravida. Duis ac massa dolor.</p>
+			</div>
+			<div class="triggers">
+				<div class="radiogroup">
+					<label for="red"><input type="radio" name="color" id="red" value="red" checked>Red</label>
+					<label for="green"><input type="radio" name="color" id="green" value="green">Green</label>
+				</div>
+				<button class="add">Add Class</button>
+				<button class="remove">Remove Class</button>
+				<button class="toggle">Toggle Class</button>
+				<button class="has">Has Class?</button>
+			</div>
+		</section>
+
+		<section class="test traversing">
+			<h1>Traversing</h1>
+			<div class="lab">
+				<ul>
+					<li><span>Sibling</span></li>
+					<li><span>Sibling</span></li>
+					<li class="source"><span>Source</span>
+						<ul>
+							<li><span>Child</span></li>
+							<li><span>Child</span></li>
+							<li><span>Child</span></li>
+						</ul>
+					</li>
+					<li>Sibling</li>
+				</ul>
+			</div>
+			<div class="triggers">
+				<button class="next">Highlight Next</button>
+				<button class="previous">Highlight Previous</button>
+				<button class="siblings">Highlight Siblings</button>
+				<button class="parent">Highlight Parent</button>
+				<button class="children">Highlight Children</button>
+			</div>
+		</section>
+
+		<section class="test filtering">
+			<h1>Filtering</h1>
+			<div class="lab">
+				<ul>
+					<li><span>Sibling</span></li>
+					<li><span>Sibling</span></li>
+					<li><span>Sibling</span>
+						<ul>
+							<li><span>Child</span></li>
+							<li><span>Child</span></li>
+							<li><span>Child</span></li>
+						</ul>
+					</li>
+					<li>Sibling</li>
+				</ul>
+			</div>
+			<div class="triggers">
+				<button class="first">Highlight First</button>
+				<button class="last">Highlight Last</button>
+				<button class="even">Highlight Even</button>
+				<button class="odd">Highlight Odd</button>
+			</div>
+		</section>
+
+		<section class="test finding">
+			<h1>Finding</h1>
+			<div class="lab">
+				<div><span>Span inside div</span> <strong class="red">Red strong in div</strong></div>
+				<span>Span outside of div</span>
+				<div><span class="red">Red span inside div</span></div>
+				<span>Span outside of div</span>
+			</div>
+			<div class="triggers">
+				<button class="makeselection">Select divs</button>
+				<button class="spans">Highlight spans inside divs</button>
+				<button class="redspans">Highlight spans with class red inside divs</button>
+			</div>
+		</section>
+	</div>
+
+	<footer role="contentinfo">
+		<div class="console">
+			<textarea name="console" id="console" readonly="true"></textarea>
+		</div>
+	</footer>
+
+	<script src="../crumbl.js"></script>
+	<script src="js/plugins-min.js"></script>
+	<script src="js/scripts/script.js"></script>
+</body>
+</html>
