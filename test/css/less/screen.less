@@ -97,7 +97,8 @@ form                          { overflow: visible; }
 fieldset                      { margin-bottom: 1em; }
 legend                        { padding: 0 0.5em; font-size: 0.75em; }
 label                         { line-height: 1; }
-input, select, textarea {
+input, select, textarea, button{
+  float: left; clear: left;
   margin-bottom: 0.5em;
   line-height: 1;
 
@@ -199,8 +200,22 @@ header + div{
 
   h1{
     display: block;
-    font-size: 1.25em;
+    font-size: 0.8125em;
+    color: @grey;
     border-bottom: solid 1px @lightgrey;
+    font-weight: normal;
+    text-align: right;
+    .clearfix();
+    line-height: 1.75;
+
+    em{
+      float: left;
+      font-size: 1.5em;
+      font-style: normal;
+      font-weight: bold;
+      color: @text;
+      line-height: 1.25;
+    }
   }
 
   .lab{
@@ -217,8 +232,7 @@ header + div{
 
     button{
       width: 100%;
-      font-size: 0.875em;
-      margin: 0 0 0.5em;
+      font-size: 0.85em;
     }
   }
 }

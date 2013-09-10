@@ -29,9 +29,10 @@
 
 	<div>
 		<section class="test event-handlers">
-			<h1>Event handlers</h1>
+			<h1><em>Event handlers</em>.on() .off()</h1>
 			<div class="lab">
-				<p><button>Button that doesn't do anything</button></p>
+				<button>Button that doesn't do anything</button>
+				<button>Button that doesn't do anything</button>
 			</div>
 			<div class="triggers">
 				<button class="attach">Attach Event</button>
@@ -40,7 +41,7 @@
 		</section>
 
 		<section class="test class-handlers">
-			<h1>Class handler</h1>
+			<h1><em>Class handler</em>.addClass() .removeClass() .toggleClass() .hasClass()</h1>
 			<div class="lab">
 				<p>Nunc nunc augue, rhoncus et luctus feugiat, pellentesque eu metus. Maecenas dapibus erat id dui aliquam, sed ullamcorper nisl pellentesque. Integer tincidunt ultrices mauris a laoreet. Praesent fringilla a dui eget iaculis. Aliquam ut ante ac nunc adipiscing facilisis ultrices ac nisi. Sed semper lorem sapien, tempus volutpat nisl pellentesque pulvinar. Pellentesque ultricies placerat purus eu gravida. Duis ac massa dolor.</p>
 			</div>
@@ -57,7 +58,7 @@
 		</section>
 
 		<section class="test traversing">
-			<h1>Traversing</h1>
+			<h1><em>Traversing</em>.next() .previous() .siblings() .parent() .children()</h1>
 			<div class="lab">
 				<ul>
 					<li><span>Sibling</span></li>
@@ -82,7 +83,7 @@
 		</section>
 
 		<section class="test filtering">
-			<h1>Filtering</h1>
+			<h1><em>Filtering</em>.filter()</h1>
 			<div class="lab">
 				<ul>
 					<li><span>Sibling</span></li>
@@ -106,7 +107,7 @@
 		</section>
 
 		<section class="test finding">
-			<h1>Finding</h1>
+			<h1><em>Finding</em>.find()</h1>
 			<div class="lab">
 				<div><span>Span inside div</span> <strong class="red">Red strong in div</strong></div>
 				<span>Span outside of div</span>
@@ -115,8 +116,140 @@
 			</div>
 			<div class="triggers">
 				<button class="makeselection">Select divs</button>
-				<button class="spans">Highlight spans inside divs</button>
-				<button class="redspans">Highlight spans with class red inside divs</button>
+				<button class="spans">Highlight div>span</button>
+				<button class="redspans">Highlight div>span.red</button>
+			</div>
+		</section>
+
+		<section class="test creation">
+			<h1><em>Creation</em>$('tag')</h1>
+			<div class="lab">
+
+			</div>
+			<div class="triggers">
+				<button class="createa">Create a link</button>
+				<button class="createinput">Create an input element</button>
+			</div>
+		</section>
+
+		<section class="test cloning">
+			<h1><em>Cloning</em>.clone()</h1>
+			<div class="lab">
+				<div class="subject">a div with <a href="http://google.com">a link</a></div>
+				<div class="subject">a div with <a href="http://google.com">a link</a></div>
+			</div>
+			<div class="triggers">
+				<button class="clone">Clone</button>
+				<button class="clonedeep">Clone deep</button>
+			</div>
+		</section>
+
+		<section class="test append">
+			<h1><em>DOM insertion</em>.append() .prepend()</h1>
+			<div class="lab">
+				<ul>
+					<li><span>Sibling</span></li>
+					<li><span>Sibling</span></li>
+					<li><span>Sibling</span>
+						<ul>
+							<li><span>Child</span></li>
+							<li><span>Child</span></li>
+							<li><span>Child</span></li>
+						</ul>
+					</li>
+					<li>Sibling</li>
+				</ul>
+			</div>
+			<div class="triggers">
+				<button class="appendli">Append li</button>
+				<button class="prependli">Prepend li</button>
+			</div>
+		</section>
+
+		<section class="test empty">
+			<h1><em>Empty</em>.empty()</h1>
+			<div class="lab">
+				<ul>
+					<li>List item</li>
+					<li><span>Spanned list item</span></li>
+					<li>List item</li>
+					<li><a href="http://glennnaessens.com">Linked list item</a></li>
+				</ul>
+				<p>Quisque vulputate urna ac commodo adipiscing. Donec faucibus pharetra est. Proin sed elementum urna. Quisque sit <a href="http://glennnaessens.com">amet</a> risus et mauris congue volutpat. Fusce porttitor lorem malesuada suscipit commodo.</p>
+			</div>
+			<div class="triggers">
+				<button class="emptylab">Empty test area</button>
+				<button class="emptyp">Empty p</button>
+			</div>
+		</section>
+
+		<section class="test remove">
+			<h1><em>Remove</em>.remove()</h1>
+			<div class="lab">
+				<ul>
+					<li>List item</li>
+					<li><span>Spanned list item</span></li>
+					<li>List item</li>
+					<li><a href="http://glennnaessens.com">Linked list item</a></li>
+				</ul>
+				<p>Quisque vulputate urna ac commodo adipiscing. Donec faucibus pharetra est. Proin sed elementum urna. Quisque sit <a href="http://glennnaessens.com">amet</a> risus et mauris congue volutpat. Fusce porttitor lorem malesuada suscipit commodo.</p>
+			</div>
+			<div class="triggers">
+				<button class="removeoddlis">Remove odd li's</button>
+				<button class="removep">Remove the p</button>
+			</div>
+		</section>
+
+		<section class="test html">
+			<h1><em>Get/Set HTML</em>.html()</h1>
+			<div class="lab">
+				<ul>
+					<li>List item</li>
+					<li><span>Spanned list item</span></li>
+					<li>List item</li>
+					<li><a href="http://glennnaessens.com">Linked list item</a></li>
+				</ul>
+				<p>Quisque vulputate urna ac commodo adipiscing. Donec faucibus pharetra est. Proin sed elementum urna. Quisque sit <a href="http://glennnaessens.com">amet</a> risus et mauris congue volutpat. Fusce porttitor lorem malesuada suscipit commodo.</p>
+			</div>
+			<div class="triggers">
+				<button class="newli">Set new li's</button>
+				<button class="gethtml">Get p>a html</button>
+			</div>
+		</section>
+
+		<section class="test attr">
+			<h1><em>Attribute management</em>.attr() .removeAttr()</h1>
+			<div class="lab">
+				<input type="text" value="A textbox" width="6">
+				<input type="email" value="my@email.com"  width="12" disabled>
+				<input type="password" value="password">
+			</div>
+			<div class="triggers">
+				<button class="setvalue">Set value to 'Kitten'</button>
+				<button class="disableall">Disable inputs</button>
+				<button class="enable">Remove disabled</button>
+				<button class="getemail">Get email value</button>
+			</div>
+		</section>
+
+		<section class="test attr">
+			<h1><em>Values</em>.val()</h1>
+			<div class="lab">
+				<input type="text" value="A textbox" width="6">
+				<input type="email" value="my@email.com"  width="12" disabled>
+				<input type="password" value="password">
+				<select name="testselect" id="testselect">
+					<option value="1">Number one</option>
+					<option value="2">Number two</option>
+					<option value="3">Number three</option>
+				</select>
+				<label for="checky"><input type="checkbox" name="checky" id="checky">Checky</label>
+			</div>
+			<div class="triggers">
+				<button class="setvalue">Set value to 'Kitten'</button>
+				<button class="disableall">Disable inputs</button>
+				<button class="enable">Remove disabled</button>
+				<button class="getemail">Get email value</button>
 			</div>
 		</section>
 	</div>

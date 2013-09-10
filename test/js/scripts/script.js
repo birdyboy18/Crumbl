@@ -167,4 +167,143 @@ $(function(){
 		selected.find('span.red').addClass('highlighted');
 		lab.report('Red spans in divs Highlighted');
 	});
+
+
+	///////////// Creation ///////////
+	var creationlab = $('.creation .lab'),
+		createa = $('.creation .createa'),
+		createinput = $('.creation .createinput');
+
+	createa.on('click', function(){
+		var a = $('<a href="http://google.com/">Test link to google</a>');
+		creationlab.append(a);
+		lab.report('link created');
+	});
+
+	createinput.on('click', function(){
+		var input = $('<input type="text" value="testbox" />');
+		creationlab.append(input);
+		lab.report('input created');
+	});
+
+	///////////// Cloning ///////////
+	var subjects = $('.cloning .subject'),
+		clonelab = $('.creation .lab'),
+		clone = $('.cloning .clone'),
+		clonedeep = $('.cloning .clonedeep');
+
+	clone.on('click', function(){
+		var clones = subjects.clone();
+		clones.addClass('highlighted');
+		clonelab.append(clones);
+
+		console.log(clones);
+
+		lab.report('Elements cloned');
+	});
+
+	clonedeep.on('click', function(){
+		var clones = subjects.clone(false);
+		clones.addClass('highlighted');
+		clonelab.append(clones);
+		lab.report('Elements cloned deep');
+	});
+
+
+	///////////// DOM insertion ///////////
+	var el = document.createElement('li'),
+		text = document.createTextNode('New list item'),
+		newli = null,
+		ul = $('.append .lab ul'),
+		appendli = $('.append .appendli'),
+		prependli = $('.append .prependli');
+
+	el.appendChild(text);
+	newli = $( el);
+
+	appendli.on('click', function(){
+		var clone = newli.clone();
+		ul.append(clone);
+		lab.report('Li inserted at end of ul');
+	});
+
+	prependli.on('click', function(){
+		ul.prepend(newli);
+		lab.report('Li inserted at beginning of ul');
+	});
+
+
+	///////////// Empty ///////////
+	var emptylab = $('.empty .lab'),
+		emptypbutton = $('.empty .emptyp'),
+		emptylabbutton = $('.empty .emptylab');
+
+	emptypbutton.on('click', function(){
+		emptylab.find('p').empty();
+		lab.report('paragraph was emptied');
+	});
+
+	emptylabbutton.on('click', function(){
+		emptylab.empty();
+		lab.report('Lab area was emptied');
+	});
+
+	///////////// Remove ///////////
+	var removelab = $('.remove .lab'),
+		removepbutton = $('.remove .removep'),
+		removeoddlisbutton = $('.remove .removeoddlis');
+
+	removeoddlisbutton.on('click', function(){
+		//removelab.find('li').filter('odd').remove(); //not working
+		removelab.find('li:odd').remove();
+		lab.report('Odd list items were removed');
+	});
+
+	removepbutton.on('click', function(){
+		removelab.find('p').remove();
+		lab.report('paragraph was removed');
+	});
+
+	///////////// Get/Set HTML ///////////
+	var htmllab = $('.html .lab'),
+		htmlnewlibutton = $('.html .newli'),
+		htmlgethtmlbutton = $('.html .gethtml');
+
+	htmlnewlibutton.on('click', function(){
+		var lis = '<li>1</li><li>2</li><li>3</li><li>4</li>';
+		htmllab.find('ul').html(lis);
+		lab.report('list items were changed');
+	});
+
+	htmlgethtmlbutton.on('click', function(){
+		var h = htmllab.find('p a').html();
+		lab.report('paragraph link html: ' + h);
+	});
+
+	///////////// Attributes ///////////
+	var attrlab = $('.attr .lab'),
+		setvaluebutton = $('.attr .setvalue'),
+		disableallbutton = $('.attr .disableall'),
+		enablebutton = $('.attr .enable'),
+		getemailbutton = $('.attr .getemail');
+
+	setvaluebutton.on('click', function(){
+		attrlab.find('input:first-child').attr('value', 'Kitten');
+		lab.report('New value of first box set');
+	});
+
+	disableallbutton.on('click', function(){
+		attrlab.find('input').attr('disabled', 'true');
+		lab.report('All boxes disabled');
+	});
+
+	enablebutton.on('click', function(){
+		attrlab.find('input').removeAttr('disabled');
+		lab.report('All boxes enabled');
+	});
+
+	getemailbutton.on('click', function(){
+		var email = attrlab.find('input[type="email').attr('value');
+		lab.report('The email address in the email box: ' + email);
+	});
 });
