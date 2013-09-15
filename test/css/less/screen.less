@@ -5,7 +5,7 @@ Date of creation: 01/04/2013
 */
 
 @import 'normalize.less';
-@import 'CSS3.less';
+@import 'mixins.less';
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////// CONFIG ///////////////////////////////////////////////////////////////////
@@ -97,8 +97,9 @@ form                          { overflow: visible; }
 fieldset                      { margin-bottom: 1em; }
 legend                        { padding: 0 0.5em; font-size: 0.75em; }
 label                         { line-height: 1; }
-input, select, textarea, button{
-  float: left; clear: left;
+input, select, textarea, button, label{
+  float: left;
+  clear: left;
   margin-bottom: 0.5em;
   line-height: 1;
 
@@ -129,6 +130,7 @@ input[type="checkbox"]        { vertical-align: top; margin: 0.25em 0.5em 0 0; }
   padding: 0.5em 1em;
   margin: 0 0 0.5em;
   background: lighten(@lightgrey, 3%);
+  .clearfix();
 
   label{
     display: block;
@@ -253,30 +255,4 @@ header + div{
 .highlighted{
   .border-radius(5px);
   background: @tertiary;
-}
-
-footer{
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 94%;
-  padding: 1em 3%;
-  background: @black;
-  color: @lightgrey;
-  .box-shadow(0 0 10px 0 rgba(0, 0, 0, 0.75));
-  .clearfix();
-
-  textarea{
-    display: block;
-    float: left;
-    height: 10em;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    color: @primary;
-    font-family: @serif;
-    font-size: 0.875em;
-  }
 }

@@ -399,15 +399,13 @@
  * MIT License
  */
 
-(function() {
+(function(w, d, undefined) {
   'use strict';
 
   var readyfn = [],
     loadedfn = [],
     domready = false,
-    pageloaded = false,
-    d = document,
-    w = window;
+    pageloaded = false;
 
   // Fire any function calls on ready event
 
@@ -453,10 +451,7 @@
     w.onload = fireLoaded;
   }
 
-  // Utility functions
-
   // Loop through node array
-
   function nodeLoop(fn, nodes) {
     var i;
 
@@ -467,7 +462,6 @@
   }
 
   // Handle standard method value returns
-
   function returnValues(values) {
     values = values.reverse();
 
@@ -480,7 +474,6 @@
   }
 
   // Event handler
-
   function manageEvent(event, handler, remove, nodes) {
     nodeLoop(function(elm) {
       if (d.addEventListener) {
@@ -658,45 +651,98 @@
   }
 
   // The actual crumbl. Use qwery to gather the requested elements and return crumbl
+
   function crumbl(selector) {
-    var nodes = [],
-      cr = {},
-      i;
+    return new crumbl.methods.init(selector);
+  }
 
-    if (selector) {
-      if (selector.nodeType && selector.nodeType === 1) {
-        // return element as node list
-        nodes = [selector];
-      } else if (selector.constructor && selector.call && selector.apply) {
-        //the selector is a function -> execute on dom ready
-        readyfn.push(selector);
-      } else if (typeof selector === 'string') {
-        if (selector.match(/<\/*[a-z][^>]+?>/gi)) {
-          // selector is an html tag: create the element, add to nodes
-          var container = document.createElement('div');
-          container.innerHTML = selector;
-          nodes.push(container.firstChild);
 
-        } else {
-          //normal behavior: use qwery to find the selector and return nodes
-          var q = qwery(selector),
-            c = q.length;
+  // The crumble object prototype
 
-          for (i = 0; i < c; i++) {
-            nodes.push(q[i]);
+  crumbl.methods = crumbl.prototype = {
+    init: function(selector, context){
+      var nodes = [],
+          context = context || d,
+          q = null,
+          c = 0,
+          i,
+          oneResultSet = false;
+
+      if (selector) {
+        if (selector.nodeType && selector.nodeType === 1) {
+          // return node as crumbl object
+          nodes = [selector];
+        } else if (selector.constructor && selector.call && selector.apply) {
+          //the selector is a function -> execute on dom ready
+          readyfn.push(selector);
+        } else if (selector instanceof Array) {
+          //the nodes have been passed to instantiate a new crumbl object from a
+          //nodes-altering function
+          nodes = selector;
+        } else if (typeof selector === 'string') {
+          if (selector.match(/<\/*[a-z][^>]+?>/gi)) {
+            // selector is an html tag: create the element, add to nodes
+            var container = document.createElement('div');
+            container.innerHTML = selector;
+            nodes.push(container.firstChild);
+
+          } else {
+            //normal behavior: use qwery to find the selector and return nodes
+
+            // context can be
+              // nothing, -> document
+              // a string (a selector)
+              // a node
+              // Array of nodes (when passed through .find())
+
+            if (context === d) {
+              q = qwery(selector);
+              c = q.length;
+              oneResultSet = true;
+
+            } else if (typeof context === 'string') {
+              q = qwery(selector);
+              c = q.length;
+              oneResultSet = true;
+
+            } else if ((context.nodeType && context.nodeType === 1) || (context instanceof Array && context.length === 1)) {
+              q = qwery(selector, (context[0] || context));
+              c = q.length;
+              oneResultSet = true;
+
+            } else if (context instanceof Array) {
+              var contextcount = context.length,
+                  contexti;
+
+              for (contexti = 0; contexti < contextcount; contexti++) {
+                q = qwery(selector, context[contexti]);
+                c = q.length;
+
+                for (i = 0; i < c; i++) {
+                  nodes.push(q[i]);
+                }
+              }
+            }
+
+            if (oneResultSet) {
+              for (i = 0; i < c; i++) {
+                nodes.push(q[i]);
+              }
+            }
           }
         }
       }
-    }
 
-    // make the nodes publicly available
-    cr.nodes = nodes;
+      this.nodes = nodes;
+      this.length = i;
 
+      return this;
+    },
 
-    // Public functions
 
     // Fire on DOM ready
-    cr.ready = function(fn) {
+
+    ready: function(fn) {
       if (fn) {
         if (domready) {
           fn();
@@ -704,10 +750,12 @@
           readyfn.push(fn);
         }
       }
-    };
+    },
+
 
     // Fire on page loaded
-    cr.loaded = function(fn) {
+
+    loaded: function(fn) {
       if (fn) {
         if (pageloaded) {
           fn();
@@ -715,192 +763,161 @@
           loadedfn.push(fn);
         }
       }
-    };
+    },
 
-    // Executes a function on nodes
-    cr.each = function(fn) {
+
+    // Perform an action on every node
+
+    each: function(fn) {
       if (typeof fn === "function") {
         nodeLoop(function(elm) {
-          // <= IE 8 loses scope so need to apply
           return fn.apply(elm, arguments);
-        }, nodes);
+        }, this.nodes);
       }
 
-      return cr;
-    };
+      return this;
+    },
 
-    cr.find = function(s) {
-      if (s) {
-        var r = [];
-        nodeLoop(function(n) {
-          var f = qwery(s, n),
-            l = qwery.length,
-            i;
 
-          for (i = 0; i < l; i++) {
-            if (typeof f[i] !== 'undefined') {
-              r.push(f[i]);
-            }
-          }
-        }, nodes);
+    // Find selector in element chilren
 
-        nodes = r;
-      }
+    find: function(s) {
+      // return a new crumbl object with qwery return results
 
-      return cr;
-    };
+      return new crumbl.methods.init(s, this.nodes);
+    },
 
-    // Filter nodes
-    cr.filter = function(filter) {
-      if (filter) {
-        var temp = [],
-          i;
-
-        switch (filter) {
-          case 'first':
-            if (nodes.length > 0) {
-              nodes = [nodes.shift()];
-            }
-            break;
-
-          case 'last':
-            if (nodes.length > 0) {
-              nodes = [nodes.pop()];
-            }
-            break;
-
-          case 'odd':
-          case 'even':
-            for (i = (filter === "odd") ? 0 : 1; i < nodes.length; i += 2) {
-              temp.push(nodes[i]);
-            }
-            nodes = temp;
-            break;
-        }
-      }
-
-      // return (nodes.length > 0) ? (nodes.length === 1) ? nodes[0] : nodes : false;
-      return cr;
-    };
 
     // Traversing
-    cr.children = function() {
-      nodes = traverse('children', nodes);
 
-      return cr;
-    };
+    children: function() {
+      return new crumbl.methods.init(traverse('children', this.nodes));
+    },
 
-    cr.siblings = function() {
-      nodes = traverse('siblings', nodes);
+    siblings: function() {
+      return new crumbl.methods.init(traverse('siblings', this.nodes));
+    },
 
-      return cr;
-    };
+    parent: function() {
+      return new crumbl.methods.init(traverse('parent', this.nodes));
+    },
 
-    cr.parent = function() {
-      nodes = traverse('parent', nodes);
+    next: function() {
+      return new crumbl.methods.init(traverse('next', this.nodes));
+    },
 
-      return cr;
-    };
+    prev: function() {
+      return new crumbl.methods.init(traverse('previous', this.nodes));
+    },
 
-    cr.next = function() {
-      nodes = traverse('next', nodes);
 
-      return cr;
-    };
+    // Filtering
 
-    cr.previous = function() {
-      nodes = traverse('previous', nodes);
+    first: function() {
+      if (this.nodes.length > 0) {
+        return new crumbl.methods.init([this.nodes.shift()]);
+      }
+    },
 
-      return cr;
-    };
+    last: function() {
+      if (this.nodes.length > 0) {
+        return new crumbl.methods.init([this.nodes.pop()]);
+      }
+    },
 
-    cr.append = function(elm) {
-      insertIntoDOM('append', elm, nodes);
-    };
 
-    cr.prepend = function(elm) {
-      insertIntoDOM('prepend', elm, nodes);
-    };
+    // Appending elements to the DOM
 
-    cr.empty = function() {
+    append: function(elm) {
+      insertIntoDOM('append', elm, this.nodes);
+    },
+
+    prepend: function(elm) {
+      insertIntoDOM('prepend', elm, this.nodes);
+    },
+
+
+    // Remove all children
+
+    empty: function() {
       nodeLoop(function(elm) {
         while (elm.hasChildNodes()) {
           elm.removeChild(elm.lastChild);
         }
-      }, nodes);
+      }, this.nodes);
 
-      return cr;
-    };
+      return this;
+    },
+
 
     // Remove node
-    cr.remove = function() {
-      var removed = nodes.length;
 
+    remove: function() {
       nodeLoop(function(elm) {
         // Catch error in unlikely case elm has been removed
         try {
           elm.parentNode.removeChild(elm);
         } catch (e) {}
-      }, nodes);
+      }, this.nodes);
 
       // Clear nodes after remove
-      nodes = [];
-    };
+      this.nodes = [];
 
-    cr.clone = function(deep) {
-      deep = ((deep === true || typeof deep === 'undefined') ? true : false);
+      return this;
+    },
 
-      var temp = [],
-          clone = null;
 
-          console.log('nodes before cloning');
-          console.log(nodes);
+    // Cloning elements
+
+    clone: function(deep) {
+      //default to true
+      deep = ((deep === true || deep === undefined) ? true : false);
+
+      var temp = [];
 
       nodeLoop(function(elm) {
-        clone = elm.cloneNode(deep);
-        var textnodefortesting = document.createTextNode('CLONE');
-        clone.appendChild(textnodefortesting);
-        temp.push(clone);
-        // console.log(temp);
-      }, nodes);
+        if(elm.nodeType || elm.nodeType === 1){
+          temp.push(elm.cloneNode(deep));
+        }
+      }, this.nodes);
 
-      nodes = temp;
-      console.log('nodes after cloning');
-      console.log(nodes);
+      return new crumbl.methods.init(temp);
+    },
 
-      return cr;
-    };
 
-    // Get/Set/Add/Remove class
-    cr.hasClass = function(c) {
-      return manageClass(c, 'has', nodes);
-    };
+    // CSS Class Management
 
-    cr.addClass = function(c) {
-      manageClass(c, 'add', nodes);
+    hasClass: function(c) {
+      return manageClass(c, 'has', this.nodes);
+    },
 
-      return cr;
-    };
+    addClass: function(c) {
+      manageClass(c, 'add', this.nodes);
 
-    cr.removeClass = function(c) {
-      manageClass(c, 'remove', nodes);
+      return this;
+    },
 
-      return cr;
-    };
+    removeClass: function(c) {
+      manageClass(c, 'remove', this.nodes);
 
-    cr.toggleClass = function(c) {
-      manageClass(c, 'toggle', nodes);
+      return this;
+    },
 
-      return cr;
-    };
+    toggleClass: function(c) {
+      manageClass(c, 'toggle', this.nodes);
+
+      return this;
+    },
+
 
     // Get/Set innerHTML optionally before/after
-    cr.html = function(value, location) {
+
+    html: function(value, location) {
       var values = [],
-        tmpnodes, tmpnode;
+          tmpnodes,
+          tmpnode;
 
       nodeLoop(function(elm) {
-
         if (location) {
           // No insertAdjacentHTML support for FF < 8 and IE doesn't allow insertAdjacentHTML table manipulation, so use this instead
           // Convert string to node. We can't innerHTML on a document fragment
@@ -926,34 +943,38 @@
             values.push(elm.innerHTML);
           }
         }
-      }, nodes);
+      }, this.nodes);
 
       if (values.length > 0) {
         return returnValues(values);
       }
-    };
+    },
 
-    // Get/Set HTML attributes
-    cr.attr = function(name, value) {
+
+    // Get/Set/remove HTML attributes
+
+    attr: function(name, value) {
       if (name) {
         if (value) {
-          manageAttributes(name, value, false, nodes);
+          manageAttributes(name, value, false, this.nodes);
 
-          return cr;
+          return this;
         } else {
-          return manageAttributes(name, false, false, nodes);
+          return manageAttributes(name, false, false, this.nodes);
         }
       }
-    };
+    },
 
-    cr.removeAttr = function(name) {
-      manageAttributes(name, false, true, nodes);
+    removeAttr: function(name) {
+      manageAttributes(name, false, true, this.nodes);
 
-      return cr;
-    };
+      return this;
+    },
+
 
     // Get/Set form element values
-    cr.val = function(replacement) {
+
+    val: function(replacement) {
       var radiogroup = [],
         values = [],
         i, j, grouped, active;
@@ -1078,33 +1099,34 @@
               values.push(elm.value);
               break;
           }
-
         }
 
-      }, nodes);
+      }, this.nodes);
 
       if (values.length > 0) {
         return returnValues(values);
       }
-    };
+    },
 
-    // Event handler
-    cr.on = function(event, handler) {
-      manageEvent(event, handler, false, nodes);
 
-      return cr;
-    };
+    // Event handlers
 
-    cr.off = function(event) {
-      manageEvent(event, null, true, nodes);
+    on: function(event, handler) {
+      manageEvent(event, handler, false, this.nodes);
 
-      return cr;
-    };
+      return this;
+    },
 
-    return cr;
-  }
+    off: function(event) {
+      manageEvent(event, null, true, this.nodes);
+
+      return this;
+    }
+  };
+
+  crumbl.methods.init.prototype = crumbl.methods;
 
   // Make crumbl globally available with $ for easy use.
   w.$ = crumbl;
 
-}());
+})(window, document);

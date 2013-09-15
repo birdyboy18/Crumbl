@@ -4,39 +4,24 @@ Web: ablesense.com
 Date of creation: 01/04/2013
 */
 
-var APP = function () {
-	var me = {},
-		console = $('#console');
-
-	me.report = function(val){
-		console.val(console.val() + '\n' + val);
-		console.nodes[0].scrollTop = console.nodes[0].scrollHeight;
-	};
-
-	return me;
-};
-
 $(function(){
-	var lab = new APP();
-
 	///////////// Event Handlers ///////////
 	var testbutton = $('.event-handlers .lab button'),
 		attach = $('.event-handlers .attach'),
 		detach = $('.event-handlers .detach');
-	// console.log(testbutton);
-	// console.log(attach);
+
 	attach.on('click', function(){
 		testbutton.on('click', function(){
-			lab.report('Button was pressed.');
+			console.log('Button was pressed.');
 		});
 		testbutton.val('Button that does something');
-		lab.report('Event Attached');
+		console.log('Event Attached');
 	});
 
 	detach.on('click', function(){
 		testbutton.off('click');
 		testbutton.val('Button that doesn\'t do anything');
-		lab.report('Event Detached');
+		console.log('Event Detached');
 	});
 
 	///////////// Class Handlers ///////////
@@ -53,7 +38,7 @@ $(function(){
 		testp.each(function(el){
 			classes += ' ' + el.className;
 		});
-		lab.report('Paragraph class: ' + classes);
+		console.log('Paragraph class: ' + classes);
 	});
 
 	remove.on('click', function(){
@@ -62,7 +47,7 @@ $(function(){
 		testp.each(function(el){
 			classes += ' ' + el.className;
 		});
-		lab.report('Paragraph class: ' + classes);
+		console.log('Paragraph class: ' + classes);
 	});
 
 	toggle.on('click', function(){
@@ -71,14 +56,14 @@ $(function(){
 		testp.each(function(el){
 			classes += ' ' + el.className;
 		});
-		lab.report('Paragraph class: ' + classes);
+		console.log('Paragraph class: ' + classes);
 	});
 
 	has.on('click', function(){
 		if(testp.hasClass(colorradio.val())){
-			lab.report('Yes, the paragraph has the "' + colorradio.val() + '" class.');
+			console.log('Yes, the paragraph has the "' + colorradio.val() + '" class.');
 		}else{
-			lab.report('No, the paragraph does not have the "' + colorradio.val() + '" class.');
+			console.log('No, the paragraph does not have the "' + colorradio.val() + '" class.');
 		}
 	});
 
@@ -92,27 +77,27 @@ $(function(){
 
 	next.on('click', function(){
 		source.next().addClass('highlighted');
-		lab.report('Next Element Highlighted');
+		console.log('Next Element Highlighted');
 	});
 
 	previous.on('click', function(){
-		source.previous().addClass('highlighted');
-		lab.report('Previous Element Highlighted');
+		source.prev().addClass('highlighted');
+		console.log('Previous Element Highlighted');
 	});
 
 	siblings.on('click', function(){
 		source.siblings().addClass('highlighted');
-		lab.report('Sibling Elements Highlighted');
+		console.log('Sibling Elements Highlighted');
 	});
 
 	parent.on('click', function(){
 		source.parent().addClass('highlighted');
-		lab.report('Parent Element Highlighted');
+		console.log('Parent Element Highlighted');
 	});
 
 	children.on('click', function(){
 		source.children().addClass('highlighted');
-		lab.report('Child Elements Highlighted');
+		console.log('Child Elements Highlighted');
 	});
 
 
@@ -126,25 +111,25 @@ $(function(){
 	first.on('click', function(){
 		collection = $('.filtering .lab li').removeClass('highlighted');
 		collection.filter('first').addClass('highlighted');
-		lab.report('First Element Highlighted');
+		console.log('First Element Highlighted');
 	});
 
 	last.on('click', function(){
 		collection = $('.filtering .lab li').removeClass('highlighted');
 		collection.filter('last').addClass('highlighted');
-		lab.report('Last Element Highlighted');
+		console.log('Last Element Highlighted');
 	});
 
 	even.on('click', function(){
 		collection = $('.filtering .lab li').removeClass('highlighted');
 		collection.filter('even').addClass('highlighted');
-		lab.report('Even Elements Highlighted');
+		console.log('Even Elements Highlighted');
 	});
 
 	odd.on('click', function(){
 		collection = $('.filtering .lab li').removeClass('highlighted');
 		collection.filter('odd').addClass('highlighted');
-		lab.report('Odd Elements Highlighted');
+		console.log('Odd Elements Highlighted');
 	});
 
 	///////////// Finding ///////////
@@ -155,17 +140,17 @@ $(function(){
 
 	select.on('click', function(){
 		selected = $('.finding .lab div');
-		lab.report('Grabbed the divs');
+		console.log('Grabbed the divs');
 	});
 
 	spansindivs.on('click', function(){
 		selected.find('span').addClass('highlighted');
-		lab.report('Spans in divs Highlighted');
+		console.log('Spans in divs Highlighted');
 	});
 
 	redspansindivs.on('click', function(){
 		selected.find('span.red').addClass('highlighted');
-		lab.report('Red spans in divs Highlighted');
+		console.log('Red spans in divs Highlighted');
 	});
 
 
@@ -177,36 +162,34 @@ $(function(){
 	createa.on('click', function(){
 		var a = $('<a href="http://google.com/">Test link to google</a>');
 		creationlab.append(a);
-		lab.report('link created');
+		console.log('link created');
 	});
 
 	createinput.on('click', function(){
 		var input = $('<input type="text" value="testbox" />');
 		creationlab.append(input);
-		lab.report('input created');
+		console.log('input created');
 	});
 
 	///////////// Cloning ///////////
 	var subjects = $('.cloning .subject'),
-		clonelab = $('.creation .lab'),
+		clonelab = $('.cloning .lab'),
 		clone = $('.cloning .clone'),
 		clonedeep = $('.cloning .clonedeep');
 
 	clone.on('click', function(){
-		var clones = subjects.clone();
-		clones.addClass('highlighted');
-		clonelab.append(clones);
-
-		console.log(clones);
-
-		lab.report('Elements cloned');
-	});
-
-	clonedeep.on('click', function(){
 		var clones = subjects.clone(false);
 		clones.addClass('highlighted');
 		clonelab.append(clones);
-		lab.report('Elements cloned deep');
+
+		console.log('Elements cloned');
+	});
+
+	clonedeep.on('click', function(){
+		var clones = subjects.clone();
+		clones.addClass('highlighted');
+		clonelab.append(clones);
+		console.log('Elements cloned deep');
 	});
 
 
@@ -219,17 +202,18 @@ $(function(){
 		prependli = $('.append .prependli');
 
 	el.appendChild(text);
-	newli = $( el);
+	newli = $(el);
 
 	appendli.on('click', function(){
 		var clone = newli.clone();
 		ul.append(clone);
-		lab.report('Li inserted at end of ul');
+		console.log('Li inserted at end of ul');
 	});
 
 	prependli.on('click', function(){
-		ul.prepend(newli);
-		lab.report('Li inserted at beginning of ul');
+		var clone = newli.clone();
+		ul.prepend(clone);
+		console.log('Li inserted at beginning of ul');
 	});
 
 
@@ -240,12 +224,12 @@ $(function(){
 
 	emptypbutton.on('click', function(){
 		emptylab.find('p').empty();
-		lab.report('paragraph was emptied');
+		console.log('paragraph was emptied');
 	});
 
 	emptylabbutton.on('click', function(){
 		emptylab.empty();
-		lab.report('Lab area was emptied');
+		console.log('Lab area was emptied');
 	});
 
 	///////////// Remove ///////////
@@ -254,14 +238,13 @@ $(function(){
 		removeoddlisbutton = $('.remove .removeoddlis');
 
 	removeoddlisbutton.on('click', function(){
-		//removelab.find('li').filter('odd').remove(); //not working
-		removelab.find('li:odd').remove();
-		lab.report('Odd list items were removed');
+		removelab.find('li').filter('odd').remove(); //not working
+		console.log('Odd list items were removed');
 	});
 
 	removepbutton.on('click', function(){
 		removelab.find('p').remove();
-		lab.report('paragraph was removed');
+		console.log('paragraph was removed');
 	});
 
 	///////////// Get/Set HTML ///////////
@@ -272,12 +255,12 @@ $(function(){
 	htmlnewlibutton.on('click', function(){
 		var lis = '<li>1</li><li>2</li><li>3</li><li>4</li>';
 		htmllab.find('ul').html(lis);
-		lab.report('list items were changed');
+		console.log('list items were changed');
 	});
 
 	htmlgethtmlbutton.on('click', function(){
 		var h = htmllab.find('p a').html();
-		lab.report('paragraph link html: ' + h);
+		console.log('paragraph link html: ' + h);
 	});
 
 	///////////// Attributes ///////////
@@ -289,21 +272,42 @@ $(function(){
 
 	setvaluebutton.on('click', function(){
 		attrlab.find('input:first-child').attr('value', 'Kitten');
-		lab.report('New value of first box set');
+		console.log('New value of first box set');
 	});
 
 	disableallbutton.on('click', function(){
 		attrlab.find('input').attr('disabled', 'true');
-		lab.report('All boxes disabled');
+		console.log('All boxes disabled');
 	});
 
 	enablebutton.on('click', function(){
 		attrlab.find('input').removeAttr('disabled');
-		lab.report('All boxes enabled');
+		console.log('All boxes enabled');
 	});
 
 	getemailbutton.on('click', function(){
 		var email = attrlab.find('input[type="email').attr('value');
-		lab.report('The email address in the email box: ' + email);
+		console.log('The email address in the email box: ' + email);
+	});
+
+	///////////// VALUES ///////////
+	var controls = $('.val .lab *'),
+		testform = $('#testform'),
+		setvaluesbutton = $('.val .setvalues'),
+		getvaluesbutton = $('.val .getvalues');
+
+	setvaluesbutton.on('click', function(){
+		testform.find('#tomatoes').attr('checked', true); //is actually an attr but is needed to get values
+		testform.find('#checky').attr('checked', true); //is actually an attr but is needed to get values
+
+		testform.find('#name').val('Glenn Naessens');
+		testform.find('#email').val('hello@glennnaessens.com');
+		testform.find('#password').val('hardtoguess');
+		testform.find('#testselect').val(3);
+		testform.find('#submit').val('Submitted');
+	});
+
+	getvaluesbutton.on('click', function(){
+		console.log(controls.val());
 	});
 });

@@ -220,8 +220,8 @@
 		<section class="test attr">
 			<h1><em>Attribute management</em>.attr() .removeAttr()</h1>
 			<div class="lab">
-				<input type="text" value="A textbox" width="6">
-				<input type="email" value="my@email.com"  width="12" disabled>
+				<input type="text" value="A textbox">
+				<input type="email" value="my@email.com" disabled>
 				<input type="password" value="password">
 			</div>
 			<div class="triggers">
@@ -232,35 +232,35 @@
 			</div>
 		</section>
 
-		<section class="test attr">
+		<section class="test val">
 			<h1><em>Values</em>.val()</h1>
 			<div class="lab">
-				<input type="text" value="A textbox" width="6">
-				<input type="email" value="my@email.com"  width="12" disabled>
-				<input type="password" value="password">
-				<select name="testselect" id="testselect">
-					<option value="1">Number one</option>
-					<option value="2">Number two</option>
-					<option value="3">Number three</option>
-				</select>
-				<label for="checky"><input type="checkbox" name="checky" id="checky">Checky</label>
+				<form action="/" id="testform">
+					<div class="radiogroup">
+						<label for="carrots"><input type="radio" name="vegetables" id="carrots" value="carrots" checked>Carrots</label>
+						<label for="leeks"><input type="radio" name="vegetables" id="leeks" value="leeks">Leeks</label>
+						<label for="tomatoes"><input type="radio" name="vegetables" id="tomatoes" value="tomatoes">Tomatoes</label>
+					</div>
+					<input type="text" value="A textbox" id="name">
+					<input type="email" value="my@email.com" id="email" disabled>
+					<input type="password" value="password" id="password">
+					<select name="testselect" id="testselect">
+						<option value="1">Number one</option>
+						<option value="2">Number two</option>
+						<option value="3">Number three</option>
+					</select>
+					<label for="checky"><input type="checkbox" name="checky" id="checky">Checky</label>
+					<input id="submit" type="submit" value="Submit">
+				</form>
 			</div>
 			<div class="triggers">
-				<button class="setvalue">Set value to 'Kitten'</button>
-				<button class="disableall">Disable inputs</button>
-				<button class="enable">Remove disabled</button>
-				<button class="getemail">Get email value</button>
+				<button class="setvalues">Set new values</button>
+				<button class="getvalues">Get current values</button>
 			</div>
 		</section>
 	</div>
 
-	<footer role="contentinfo">
-		<div class="console">
-			<textarea name="console" id="console" readonly="true"></textarea>
-		</div>
-	</footer>
-
-	<script src="../crumbl.js"></script>
+	<script src="js/crumbl.js"></script>
 	<script src="js/plugins-min.js"></script>
 	<script src="js/scripts/script.js"></script>
 </body>
