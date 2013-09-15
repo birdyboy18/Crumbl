@@ -1,11 +1,4 @@
 /*!
- * @preserve Qwery - A Blazing Fast query selector engine
- * https://github.com/ded/qwery
- * copyright Dustin Diaz 2012
- * MIT License
- */
-
-/*!
  * @preserve Crumbl - A lightweight javascript framework
  * https://github.com/glennnaessens/crumbl
  * copyright Glenn Naessens 2013
@@ -14,6 +7,13 @@
 
 (function(w, d, undefined) {
   'use strict';
+
+  /*!
+ * @preserve Qwery - A Blazing Fast query selector engine
+ * https://github.com/ded/qwery
+ * copyright Dustin Diaz 2012
+ * MIT License
+ */
 
   window.qwery = (function() {
     var doc = document,
@@ -461,7 +461,6 @@
   function returnValues(values) {
     values = values.reverse();
 
-    // Return string for singles
     if (values.length === 1) {
       values = values[0];
     }
@@ -648,8 +647,8 @@
 
   // The actual crumbl. Use qwery to gather the requested elements and return crumbl
 
-  function crumbl(selector) {
-    return new crumbl.methods.init(selector);
+  function crumbl(selector, context) {
+    return new crumbl.methods.init(selector, context);
   }
 
 
@@ -807,21 +806,6 @@
     },
 
 
-    // Filtering
-
-    first: function() {
-      if (this.nodes.length > 0) {
-        return new crumbl.methods.init([this.nodes.shift()]);
-      }
-    },
-
-    last: function() {
-      if (this.nodes.length > 0) {
-        return new crumbl.methods.init([this.nodes.pop()]);
-      }
-    },
-
-
     // Appending elements to the DOM
 
     append: function(elm) {
@@ -909,35 +893,13 @@
     // Get/Set innerHTML optionally before/after
 
     html: function(value, location) {
-      var values = [],
-          tmpnodes,
-          tmpnode;
+      var values = [];
 
       nodeLoop(function(elm) {
-        if (location) {
-          // No insertAdjacentHTML support for FF < 8 and IE doesn't allow insertAdjacentHTML table manipulation, so use this instead
-          // Convert string to node. We can't innerHTML on a document fragment
-          tmpnodes = d.createElement('div');
-          tmpnodes.innerHTML = value;
-
-          while ((tmpnode = tmpnodes.lastChild) !== null) {
-            // Catch error in unlikely case elm has been removed
-            try {
-              if (location === 'before') {
-                elm.parentNode.insertBefore(tmpnode, elm);
-              } else if (location === 'after') {
-                elm.parentNode.insertBefore(tmpnode, elm.nextSibling);
-              }
-            } catch (e) {
-              break;
-            }
-          }
+        if (value) {
+          elm.innerHTML = value;
         } else {
-          if (value) {
-            elm.innerHTML = value;
-          } else {
-            values.push(elm.innerHTML);
-          }
+          values.push(elm.innerHTML);
         }
       }, this.nodes);
 
