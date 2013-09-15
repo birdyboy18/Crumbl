@@ -104,32 +104,18 @@ $(function(){
 	///////////// Filtering ///////////
 	var collection = $('.filtering .lab li'),
 		first = $('.filtering .first'),
-		last = $('.filtering .last'),
-		even = $('.filtering .even'),
-		odd = $('.filtering .odd');
+		last = $('.filtering .last');
 
 	first.on('click', function(){
 		collection = $('.filtering .lab li').removeClass('highlighted');
-		collection.filter('first').addClass('highlighted');
+		collection.first().addClass('highlighted');
 		console.log('First Element Highlighted');
 	});
 
 	last.on('click', function(){
 		collection = $('.filtering .lab li').removeClass('highlighted');
-		collection.filter('last').addClass('highlighted');
+		collection.last().addClass('highlighted');
 		console.log('Last Element Highlighted');
-	});
-
-	even.on('click', function(){
-		collection = $('.filtering .lab li').removeClass('highlighted');
-		collection.filter('even').addClass('highlighted');
-		console.log('Even Elements Highlighted');
-	});
-
-	odd.on('click', function(){
-		collection = $('.filtering .lab li').removeClass('highlighted');
-		collection.filter('odd').addClass('highlighted');
-		console.log('Odd Elements Highlighted');
 	});
 
 	///////////// Finding ///////////
