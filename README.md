@@ -11,53 +11,50 @@ Crumbl can help you with selecting and creating DOM elements, manipulating the D
 
 ###Selecting elements
 
+####Querying elements
+
 You can pass a variety of CSS selectors to Crumbl. You get a Crumbl object back with all nodes that match your selector.
 
-``` js
+''' js
 // basic
-$('#foo') //ID
-$('.bar') //class
-$('a#foo.bar') //combination of tag, ID and class
+$('#foo'); //ID
+$('.bar'); //class
+$('a#foo.bar'); //combination of tag, ID and class
+$('div, p'); //combo
 
 // attributes
-#foo a[href] {} /* simple */
-#foo a[href=bar] {} /* attribute values */
-#foo a[lang|=en] {} /* subcodes */
-#foo a[title~=hello] {} /* attribute contains */
-#foo a[href^="http://"] {} /* attribute starts with */
-#foo a[href$=com] {} /* attribute ends with */
-#foo a[href*=twitter] /* {} attribute wildcards */
+$('#foo a[href]'); //has attribute
+$('#foo a[href=bar]'); //attribute values
+$('#foo a[lang|=en]'); //subcodes
+$('#foo a[title~=hello]'); //attribute contains
+$('#foo a[href^="http://"]'); //attribute starts with
+$('#foo a[href$=com]'); //attribute ends with
+$('#foo a[href*=twitter]'); //attribute wildcards
 
-/* descendants */
-#foo a {} /* all descendants */
-ul#list > li {} /* direct children */
+// descendants
+$('#foo a'); //all descendants
+$('ul#list > li'); //direct children
 
-/* siblings */
-span ~ strong {} /* all adjacent */
-p + p {} /* immediate adjacent */
+// siblings
+$('span ~ strong'); //all adjacent
+$('p + p {}'); //immediate adjacent
+'''
 
-/* combos */
-div,p {}
+####Contexts
 
-/* variations */
-#foo.bar.baz {}
-div#baz.thunk a[-data-info*="hello world"] span + strong {}
-#thunk[title$='huzza'] {}
-```
-
-Contexts
--------
 Each query can optionally pass in a context
 
-``` js
+''' js
 $('div', node); // existing DOM node or...
 $('div', '#foo'); // another query
-```
+'''
 
 
 ###Creating DOM elements
 
-<p><em>Create a DOM element from the given markup.</em></p>
-<p><strong>Returns:</strong> A new Crumbl object with the given markup as a node.</p>
+*Create a DOM element from the given markup.*
+**Returns:** A new Crumbl object with the given markup as a node.
 
-<div class="highlight"><pre>$('<div><p><a href="http://google.com"></a></p></div>');</pre></div>
+'''
+$('<div><p><a href="http://google.com"></a></p></div>');
+'''
