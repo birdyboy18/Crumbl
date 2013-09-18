@@ -275,25 +275,4 @@ $(function(){
 		var email = attrlab.find('input[type="email').attr('value');
 		console.log('The email address in the email box: ' + email);
 	});
-
-	///////////// VALUES ///////////
-	var controls = $('.val .lab *'),
-		testform = $('#testform'),
-		setvaluesbutton = $('.val .setvalues'),
-		getvaluesbutton = $('.val .getvalues');
-
-	setvaluesbutton.on('click', function(){
-		testform.find('#tomatoes').attr('checked', true); //is actually an attr but is needed to get values
-		testform.find('#checky').attr('checked', true); //is actually an attr but is needed to get values
-
-		testform.find('#name').val('Glenn Naessens');
-		testform.find('#email').val('hello@glennnaessens.com');
-		testform.find('#password').val('hardtoguess');
-		testform.find('#testselect').val(3);
-		testform.find('#submit').val('Submitted');
-	});
-
-	getvaluesbutton.on('click', function(){
-		console.log(controls.val());
-	});
 });

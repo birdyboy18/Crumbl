@@ -1,19 +1,53 @@
-/*!
- * @preserve Crumbl - A lightweight javascript framework
- * https://github.com/glennnaessens/crumbl
- * copyright Glenn Naessens 2013
- * MIT License
- */
+
+// @preserve Crumbl - A lightweight javascript framework
+// https://github.com/glennnaessens/crumbl
+// copyright Glenn Naessens 2013
+// MIT License
+
 
 (function(w, d, undefined) {
   'use strict';
 
-  /*!
- * @preserve Qwery - A Blazing Fast query selector engine
- * https://github.com/ded/qwery
- * copyright Dustin Diaz 2012
- * MIT License
- */
+  // @preserve Qwery - A Blazing Fast query selector engine
+  // https://github.com/ded/qwery
+  // copyright Dustin Diaz 2012
+  // MIT License
+
+  // Utility functions used by both qwery and crumbl
+
+  function isNode(el, t) {
+    return el && typeof el === 'object' && (t = el[nodeType]) && (t == 1 || t == 9);
+  }
+
+  function each(a, fn) {
+    // not quite as fast as inline loops in older browsers so don't use liberally
+    var i = 0,
+        l = a.length
+    for (; i < l; i++) fn(a[i])
+  }
+
+  function flatten(ar) {
+    for (var r = [], i = 0, l = ar.length; i < l; ++i) arrayLike(ar[i]) ? (r = r.concat(ar[i])) : (r[r.length] = ar[i])
+    return r
+  }
+
+  function arrayify(ar) {
+    var i = 0,
+        l = ar.length,
+        r = []
+    for (; i < l; i++) r[i] = ar[i]
+    return r
+  }
+
+  function previous(n) {
+    while (n = n.previousSibling)
+      if (n[nodeType] == 1) break;
+    return n
+  }
+
+  function arrayLike(o) {
+    return (typeof o === 'object' && isFinite(o.length))
+  }
 
   window.qwery = (function() {
     var doc = document,
@@ -80,33 +114,6 @@
 
       function classRegex(c) {
         return classCache.g(c) || classCache.s(c, '(^|\\s+)' + c + '(\\s+|$)', 1)
-      }
-
-      // not quite as fast as inline loops in older browsers so don't use liberally
-
-      function each(a, fn) {
-        var i = 0,
-          l = a.length
-        for (; i < l; i++) fn(a[i])
-      }
-
-      function flatten(ar) {
-        for (var r = [], i = 0, l = ar.length; i < l; ++i) arrayLike(ar[i]) ? (r = r.concat(ar[i])) : (r[r.length] = ar[i])
-        return r
-      }
-
-      function arrayify(ar) {
-        var i = 0,
-          l = ar.length,
-          r = []
-        for (; i < l; i++) r[i] = ar[i]
-        return r
-      }
-
-      function previous(n) {
-        while (n = n.previousSibling)
-          if (n[nodeType] == 1) break;
-        return n
       }
 
       function q(query) {
@@ -239,10 +246,6 @@
         return (cand = crawl(el, tokens.length - 1, el)) && (!root || isAncestor(cand, root))
       }
 
-      function isNode(el, t) {
-        return el && typeof el === 'object' && (t = el[nodeType]) && (t == 1 || t == 9)
-      }
-
       function uniq(ar) {
         var a = [],
           i, j;
@@ -252,10 +255,6 @@
           a[a.length] = ar[i]
         }
         return a
-      }
-
-      function arrayLike(o) {
-        return (typeof o === 'object' && isFinite(o.length))
       }
 
       function normalizeRoot(root) {
@@ -670,6 +669,8 @@
         } else if (selector.constructor && selector.call && selector.apply) {
           //the selector is a function -> execute on dom ready
           readyfn.push(selector);
+
+          return null;
         } else if (selector instanceof Array) {
           //the nodes have been passed to instantiate a new crumbl object from a
           //nodes-altering function
@@ -892,7 +893,7 @@
 
     // Get/Set innerHTML optionally before/after
 
-    html: function(value, location) {
+    html: function(value) {
       var values = [];
 
       nodeLoop(function(elm) {
@@ -927,143 +928,6 @@
       manageAttributes(name, false, true, this.nodes);
 
       return this;
-    },
-
-
-    // Get/Set form element values
-
-    val: function(replacement) {
-      var radiogroup = [],
-        values = [],
-        i, j, grouped, active;
-
-      if (typeof replacement === 'string') {
-        replacement = [replacement];
-      }
-
-      nodeLoop(function(elm) {
-
-        if (replacement) {
-          switch (elm.nodeName) {
-            case 'SELECT':
-              for (i = 0; i < elm.length; i += 1) {
-                // Multiple select
-                for (j = 0; j < replacement.length; j += 1) {
-                  elm[i].selected = '';
-
-                  if (elm[i].value === replacement[j]) {
-                    elm[i].selected = 'selected';
-                    break;
-                  }
-                }
-              }
-              break;
-
-            case 'INPUT':
-              switch (elm.type) {
-                case 'checkbox':
-                case 'radio':
-                  elm.checked = '';
-
-                  for (i = 0; i < replacement.length; i += 1) {
-                    if (elm.value === replacement[i]) {
-                      elm.checked = 'checked';
-                      break;
-                    }
-                  }
-
-                  break;
-                default:
-                  elm.value = replacement[0];
-              }
-
-              break;
-
-            case 'TEXTAREA':
-            case 'BUTTON':
-              elm.value = replacement[0];
-              break;
-          }
-
-        } else {
-          switch (elm.nodeName) {
-            case 'SELECT':
-
-              active = values.length;
-
-              values.push([]);
-
-              for (i = 0; i < elm.length; i += 1) {
-                if (elm[i].selected) {
-                  values[active].push(elm[i].value);
-                }
-              }
-
-              switch (values[active].length) {
-                case 0:
-                  values[active] = null;
-                  break;
-
-                case 1:
-                  values[active] = values[active][0];
-                  break;
-              }
-
-              break;
-
-            case 'INPUT':
-              switch (elm.type) {
-                case 'checkbox':
-                  if (elm.checked) {
-                    values.push(elm.value);
-                  } else {
-                    values.push(null);
-                  }
-                  break;
-
-                case 'radio':
-
-                  grouped = false;
-
-                  for (i = 0; i < radiogroup.length; i += 1) {
-                    if (radiogroup[i][0] === elm.name) {
-                      if (elm.checked) {
-                        values[radiogroup[i][1]] = elm.value;
-                      }
-                      grouped = true;
-                    }
-                  }
-
-                  if (!grouped) {
-                    radiogroup.push([elm.name, values.length]);
-
-                    if (elm.checked) {
-                      values.push(elm.value);
-                    } else {
-                      values.push(null);
-                    }
-                  }
-
-                  break;
-                  // Everything else including shinny new HTML5 input types
-                default:
-                  values.push(elm.value);
-              }
-
-              break;
-
-            case 'TEXTAREA':
-            case 'BUTTON':
-              values.push(elm.value);
-              break;
-          }
-        }
-
-      }, this.nodes);
-
-      if (values.length > 0) {
-        return returnValues(values);
-      }
     },
 
 

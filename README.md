@@ -278,20 +278,6 @@ $('input').removeAttr('disabled');
 ```
 
 
-###Form element value management
-
-*Get or set the value of each element in the nodelist.*
-
-**Expects:** A value when setting
-
-**Returns:** An array with a value for each element in the nodelist / Crumbl
-
-``` js
-var values = $('input').val();
-$('input').val('Your name here');
-```
-
-
 ###Event management
 
 *Add or remove an event handler from each element in the nodelist.*
