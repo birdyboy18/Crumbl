@@ -14,13 +14,13 @@ $(function(){
 		testbutton.on('click', function(){
 			console.log('Button was pressed.');
 		});
-		testbutton.val('Button that does something');
+		testbutton.html('Button that does something');
 		console.log('Event Attached');
 	});
 
 	detach.on('click', function(){
 		testbutton.off('click');
-		testbutton.val('Button that doesn\'t do anything');
+		testbutton.html('Button that doesn\'t do anything');
 		console.log('Event Detached');
 	});
 

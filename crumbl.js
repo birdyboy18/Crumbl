@@ -446,16 +446,6 @@
     w.onload = fireLoaded;
   }
 
-  // Loop through node array
-  function nodeLoop(fn, nodes) {
-    var i;
-
-    // Good idea to walk up the DOM
-    for (i = nodes.length - 1; i >= 0; i -= 1) {
-      fn(nodes[i]);
-    }
-  }
-
   // Handle standard method value returns
   function returnValues(values) {
     values = values.reverse();
@@ -469,39 +459,33 @@
 
   // Event handler
   function manageEvent(event, handler, remove, nodes) {
-    nodeLoop(function(elm) {
+    each(nodes, function(elm) {
       if (d.addEventListener) {
-        if (remove) {
-          elm.removeEventListener(event, elm[event], false);
-        } else {
-          elm.addEventListener(event, handler, false);
-        }
+        remove ? elm.removeEventListener(event, elm[event], false) : elm.addEventListener(event, handler, false);
       } else if (d.attachEvent) {
-        if (remove) {
-          elm.detachEvent('on' + event, elm[event]);
-        } else {
-          elm.attachEvent('on' + event, handler);
-        }
+        remove ? elm.detachEvent('on' + event, elm[event]) : elm.attachEvent('on' + event, handler);
       }
 
-      if (remove) {
-        elm[event] = null;
-      } else {
-        elm[event] = handler;
-      }
-    }, nodes);
+      elm[event] = (remove ? null : handler);
+    });
   }
 
   function manageClass(classes, action, nodes) {
     var values = [],
-      classarray, l, classname, search, has, i, get, item;
+        classarray,
+        l,
+        classname,
+        search,
+        has,
+        i,
+        item;
 
     if (classes) {
       // Trim any whitespace
       classarray = classes.split(/\s+/);
       l = classarray.length;
 
-      nodeLoop(function(elm) {
+      each(nodes, function(elm) {
         classname = elm.className;
 
         if (action === 'add') {
@@ -513,25 +497,25 @@
             item = classarray[i];
             search = new RegExp('\\b' + item + '\\b', 'g');
 
-            if (action === "has") {
+            if (action === 'has') {
               if (!classname.match(search)) {
                 has = false;
               }
-            } else if (action === "toggle") {
+            } else if (action === 'toggle') {
               elm.className = (elm.className.match(search)) ? elm.className.replace(search, '') : elm.className + " " + item;
             } else { // remove
               elm.className = elm.className.replace(search, '');
             }
           }
 
-          if (action === "has") {
+          if (action === 'has') {
             values.push(has);
           }
         }
 
         // remove spaces
         elm.className = elm.className.replace(/^\s+|\s+$/g, '');
-      }, nodes);
+      });
 
       if (values.length > 0) {
         return returnValues(values);
@@ -542,7 +526,7 @@
   function manageAttributes(name, value, remove, nodes) {
     var values = [];
 
-    nodeLoop(function(elm) {
+    each(nodes, function(elm) {
       if (name) {
         name = name.toLowerCase();
 
@@ -556,7 +540,7 @@
           values.push(null);
         }
       }
-    }, nodes);
+    });
 
     if (values.length > 0) {
       return returnValues(values);
@@ -576,17 +560,17 @@
     l = children.length;
 
     if (method === 'append') {
-      nodeLoop(function(elm) {
+      each(nodes, function(elm) {
         for (var i = 0; i < l; i++) {
           elm.appendChild(children[i]);
         }
-      }, nodes);
+      });
     } else {
-      nodeLoop(function(elm) {
+      each(nodes, function(elm) {
         for (var i = 0; i < l; i++) {
           elm.insertBefore(children[i], elm.firstChild);
         }
-      }, nodes);
+      });
     }
   }
 
@@ -600,7 +584,7 @@
         case 'siblings':
           for (i = 0; i < c; i++) {
             var node = (to === 'siblings' ? nodes[i].parentNode.firstChild : nodes[i].firstChild),
-              skipSelf = nodes[i];
+                skipSelf = nodes[i];
 
             do {
               if (node && node.nodeType === 1 && node !== skipSelf) {
@@ -649,7 +633,6 @@
   function crumbl(selector, context) {
     return new crumbl.methods.init(selector, context);
   }
-
 
   // The crumble object prototype
 
@@ -766,9 +749,9 @@
 
     each: function(fn) {
       if (typeof fn === "function") {
-        nodeLoop(function(elm) {
+        each(this.nodes, function(elm) {
           return fn.apply(elm, arguments);
-        }, this.nodes);
+        });
       }
 
       return this;
@@ -821,11 +804,11 @@
     // Remove all children
 
     empty: function() {
-      nodeLoop(function(elm) {
+      each(this.nodes, function(elm) {
         while (elm.hasChildNodes()) {
           elm.removeChild(elm.lastChild);
         }
-      }, this.nodes);
+      });
 
       return this;
     },
@@ -834,12 +817,12 @@
     // Remove node
 
     remove: function() {
-      nodeLoop(function(elm) {
+      each(this.nodes, function(elm) {
         // Catch error in unlikely case elm has been removed
         try {
           elm.parentNode.removeChild(elm);
         } catch (e) {}
-      }, this.nodes);
+      });
 
       // Clear nodes after remove
       this.nodes = [];
@@ -856,11 +839,11 @@
 
       var temp = [];
 
-      nodeLoop(function(elm) {
+      each(this.nodes, function(elm) {
         if(elm.nodeType || elm.nodeType === 1){
           temp.push(elm.cloneNode(deep));
         }
-      }, this.nodes);
+      });
 
       return new crumbl.methods.init(temp);
     },
@@ -896,13 +879,13 @@
     html: function(value) {
       var values = [];
 
-      nodeLoop(function(elm) {
+      each(this.nodes, function(elm) {
         if (value) {
           elm.innerHTML = value;
         } else {
           values.push(elm.innerHTML);
         }
-      }, this.nodes);
+      });
 
       if (values.length > 0) {
         return returnValues(values);
