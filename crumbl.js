@@ -381,7 +381,7 @@
         return ss.length > 1 && result.length > 1 ? uniq(result) : result
       }, configure = function(options) {
         // configNativeQSA: use fully-internal selector or native qSA where present
-        if (typeof options[useNativeQSA] !== 'undefined')
+        if (options[useNativeQSA] !== undefined)
           select = !options[useNativeQSA] ? selectNonNative : hasQSA ? selectQSA : selectNonNative
       }
 

@@ -32,8 +32,15 @@ $(function(){
 		toggle = $('.class-handlers .toggle'),
 		has = $('.class-handlers .has');
 
+	function getSelectedClass(){
+		if(colorradio.nodes[0].checked){
+			return 'red';
+		}
+		return 'green';
+	}
+
 	add.on('click', function(){
-		testp.addClass(colorradio.val());
+		testp.addClass(getSelectedClass());
 		var classes = '';
 		testp.each(function(el){
 			classes += ' ' + el.className;
@@ -42,7 +49,7 @@ $(function(){
 	});
 
 	remove.on('click', function(){
-		testp.removeClass(colorradio.val());
+		testp.removeClass(getSelectedClass());
 		var classes = '';
 		testp.each(function(el){
 			classes += ' ' + el.className;
@@ -51,7 +58,7 @@ $(function(){
 	});
 
 	toggle.on('click', function(){
-		testp.toggleClass(colorradio.val());
+		testp.toggleClass(getSelectedClass());
 		var classes = '';
 		testp.each(function(el){
 			classes += ' ' + el.className;
@@ -60,10 +67,10 @@ $(function(){
 	});
 
 	has.on('click', function(){
-		if(testp.hasClass(colorradio.val())){
-			console.log('Yes, the paragraph has the "' + colorradio.val() + '" class.');
+		if(testp.hasClass(getSelectedClass())){
+			console.log('Yes, the paragraph has the "' + getSelectedClass() + '" class.');
 		}else{
-			console.log('No, the paragraph does not have the "' + colorradio.val() + '" class.');
+			console.log('No, the paragraph does not have the "' + getSelectedClass() + '" class.');
 		}
 	});
 
@@ -98,24 +105,6 @@ $(function(){
 	children.on('click', function(){
 		source.children().addClass('highlighted');
 		console.log('Child Elements Highlighted');
-	});
-
-
-	///////////// Filtering ///////////
-	var collection = $('.filtering .lab li'),
-		first = $('.filtering .first'),
-		last = $('.filtering .last');
-
-	first.on('click', function(){
-		collection = $('.filtering .lab li').removeClass('highlighted');
-		collection.first().addClass('highlighted');
-		console.log('First Element Highlighted');
-	});
-
-	last.on('click', function(){
-		collection = $('.filtering .lab li').removeClass('highlighted');
-		collection.last().addClass('highlighted');
-		console.log('Last Element Highlighted');
 	});
 
 	///////////// Finding ///////////
@@ -183,7 +172,7 @@ $(function(){
 	var el = document.createElement('li'),
 		text = document.createTextNode('New list item'),
 		newli = null,
-		ul = $('.append .lab ul'),
+		ul = $('.append .lab > ul'),
 		appendli = $('.append .appendli'),
 		prependli = $('.append .prependli');
 
@@ -224,7 +213,7 @@ $(function(){
 		removeoddlisbutton = $('.remove .removeoddlis');
 
 	removeoddlisbutton.on('click', function(){
-		removelab.find('li').filter('odd').remove(); //not working
+		removelab.find('li:nth-child(odd)').remove(); //not working
 		console.log('Odd list items were removed');
 	});
 
