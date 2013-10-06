@@ -216,22 +216,22 @@ $('div p').remove();
 
 **Returns:** Crumbl, except for .hasClass() which returns a boolean
 
-Add a classname to each element in the nodelist
+####Add a classname to each element in the nodelist
 ``` js
 $('div').addClass('hidden');
 ```
 
-Remove a classname from each element in the nodelist
+####Remove a classname from each element in the nodelist
 ``` js
 $('div').removeClass('hidden');
 ```
 
-Toggle a classname on each element in the nodelist
+####Toggle a classname on each element in the nodelist
 ``` js
 $('div').toggleClass('hidden');
 ```
 
-Check for the given classname on each element in the nodelist
+####Check for the given classname on each element in the nodelist
 ``` js
 $('div').hasClass('hidden');
 ```
@@ -253,6 +253,8 @@ $('div').html('<p>A very exciting paragraph</p>');
 
 ###Attribute management
 
+####Adding and updating attributes
+
 *Get or set the given attribute on each element in the nodelist.*
 
 **Expects:** An attribute name [and value when setting]
@@ -264,8 +266,7 @@ var titles = $('div').attr('title');
 $('div').attr('title', 'My contact information');
 ```
 
-
-###Attribute removal
+####Removing attributes
 
 *Remove the given attribute from each element in the nodelist.*
 
@@ -292,4 +293,19 @@ $('button').on('click', function(e){
 	alert('Hooray!');
 });
 $('button').off('click');
+```
+
+
+###Node itteration
+
+*Itterate over all elements in the nodelist and execute a function each one of them.*
+
+**Expects:** A callback function with one parameter (the node)
+
+**Returns:** Crumbl
+
+``` js
+$('button').each(function(n){
+	n.style.backgroundColor = 'red';
+});
 ```

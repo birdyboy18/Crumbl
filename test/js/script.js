@@ -375,10 +375,10 @@ $(function(){
 	});
 
 	getemailbutton.on('click', function(){
-		var email = attrlab.find('input#email').attr('value');
+		var email = attrlab.find('input#email');
 
 		console.clear();
-		console.log('The email address in the email box: ' + email);
+		console.log('The email address in the email box: ' + email.attr('value'));
 		console.log('Affected elements: ' + email.count);
 		console.warn(email);
 	});
@@ -411,6 +411,5 @@ $(function(){
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
 	});
-
 
 });

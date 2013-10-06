@@ -668,6 +668,7 @@
 						var container = document.createElement('div');
 						container.innerHTML = selector;
 						nodes.push(container.firstChild);
+						c = 1;
 
 					} else {
 						//normal behavior: use qwery to find the selector and return nodes
@@ -691,19 +692,25 @@
 						} else if ((context.nodeType && context.nodeType === 1) || (context instanceof Array && context.length === 1)) {
 							q = qwery(selector, (context[0] || context));
 							c = q.length;
+
 							oneResultSet = true;
 
 						} else if (context instanceof Array) {
 							var contextcount = context.length,
-									contexti;
+									contexti,
+									totalc = 0;
 
 							for (contexti = 0; contexti < contextcount; contexti++) {
 								q = qwery(selector, context[contexti]);
 								c = q.length;
 
+								totalc += c;
+
 								for (i = 0; i < c; i++) {
 									nodes.push(q[i]);
 								}
+
+								c = totalc;
 							}
 						}
 
@@ -894,6 +901,8 @@
 			if (values.length > 0) {
 				return returnValues(values);
 			}
+
+			return this;
 		},
 
 
