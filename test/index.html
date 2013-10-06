@@ -17,7 +17,7 @@
 
 	<!--[if lt IE 9]>
         <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <script>window.html5 || document.write('<script src="js/libs/html5shiv.js"><\/script>')</script>
+        <script>window.html5 || document.write('<script src="js/html5shiv.js"><\/script>')</script>
     <![endif]-->
 </head>
 <body>
@@ -197,7 +197,7 @@
 			<h1><em>Attribute management</em>.attr() .removeAttr()</h1>
 			<div class="lab">
 				<input type="text" value="A textbox">
-				<input type="email" value="my@email.com" disabled>
+				<input type="email" value="my@email.com" id="email" disabled>
 				<input type="password" value="password">
 			</div>
 			<div class="triggers">
@@ -207,10 +207,28 @@
 				<button class="getemail">Get email value</button>
 			</div>
 		</section>
+
+		<section class="test each">
+			<h1><em>Looping over elements</em>.each()</h1>
+			<div class="lab">
+				<a href="http://google.com/">A link to google</a>
+				<ul>
+					<li>A list item</li>
+					<li>A list item</li>
+				</ul>
+				<div><span>Some text right here</span></div>
+				<button>Don't press this button</button>
+				<input type="text" value="A textbox">
+			</div>
+			<div class="triggers">
+				<button class="loopone">Make all items red</button>
+				<button class="looptwo">Clone all elements</button>
+			</div>
+		</section>
 	</div>
 
 	<script src="js/crumbl.js"></script>
-	<script src="js/plugins-min.js"></script>
-	<script src="js/scripts/script.js"></script>
+	<script src="js/plugins.min.js"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>

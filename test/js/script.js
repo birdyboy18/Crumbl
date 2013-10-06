@@ -15,13 +15,21 @@ $(function(){
 			console.log('Button was pressed.');
 		});
 		testbutton.html('Button that does something');
+
+		console.clear();
 		console.log('Event Attached');
+		console.log('Affected elements: ' + testbutton.count);
+		console.warn(testbutton);
 	});
 
 	detach.on('click', function(){
 		testbutton.off('click');
 		testbutton.html('Button that doesn\'t do anything');
+		
+		console.clear();
 		console.log('Event Detached');
+		console.log('Affected elements: ' + testbutton.count);
+		console.warn(testbutton);
 	});
 
 	///////////// Class Handlers ///////////
@@ -45,7 +53,11 @@ $(function(){
 		testp.each(function(el){
 			classes += ' ' + el.className;
 		});
+
+		console.clear();
 		console.log('Paragraph class: ' + classes);
+		console.log('Affected elements: ' + testp.count);
+		console.warn(testp);
 	});
 
 	remove.on('click', function(){
@@ -54,7 +66,11 @@ $(function(){
 		testp.each(function(el){
 			classes += ' ' + el.className;
 		});
+
+		console.clear();
 		console.log('Paragraph class: ' + classes);
+		console.log('Affected elements: ' + testp.count);
+		console.warn(testp);
 	});
 
 	toggle.on('click', function(){
@@ -63,15 +79,22 @@ $(function(){
 		testp.each(function(el){
 			classes += ' ' + el.className;
 		});
+
+		console.clear();
 		console.log('Paragraph class: ' + classes);
+		console.log('Affected elements: ' + testp.count);
+		console.warn(testp);
 	});
 
 	has.on('click', function(){
+		console.clear();
 		if(testp.hasClass(getSelectedClass())){
 			console.log('Yes, the paragraph has the "' + getSelectedClass() + '" class.');
 		}else{
 			console.log('No, the paragraph does not have the "' + getSelectedClass() + '" class.');
 		}
+		console.log('Affected elements: ' + testp.count);
+		console.warn(testp);
 	});
 
 	///////////// Traversing ///////////
@@ -83,28 +106,48 @@ $(function(){
 		children = $('.traversing .children');
 
 	next.on('click', function(){
-		source.next().addClass('highlighted');
+		var affected = source.next().addClass('highlighted');
+
+		console.clear();
 		console.log('Next Element Highlighted');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	previous.on('click', function(){
-		source.prev().addClass('highlighted');
+		var affected = source.prev().addClass('highlighted');
+
+		console.clear();
 		console.log('Previous Element Highlighted');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	siblings.on('click', function(){
-		source.siblings().addClass('highlighted');
+		var affected = source.siblings().addClass('highlighted');
+
+		console.clear();
 		console.log('Sibling Elements Highlighted');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	parent.on('click', function(){
-		source.parent().addClass('highlighted');
+		var affected = source.parent().addClass('highlighted');
+
+		console.clear();
 		console.log('Parent Element Highlighted');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	children.on('click', function(){
-		source.children().addClass('highlighted');
+		var affected = source.children().addClass('highlighted');
+
+		console.clear();
 		console.log('Child Elements Highlighted');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	///////////// Finding ///////////
@@ -115,17 +158,29 @@ $(function(){
 
 	select.on('click', function(){
 		selected = $('.finding .lab div');
+
+		console.clear();
 		console.log('Grabbed the divs');
+		console.log('Affected elements: ' + selected.count);
+		console.warn(selected);
 	});
 
 	spansindivs.on('click', function(){
-		selected.find('span').addClass('highlighted');
+		var affected = selected.find('span').addClass('highlighted');
+
+		console.clear();
 		console.log('Spans in divs Highlighted');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	redspansindivs.on('click', function(){
-		selected.find('span.red').addClass('highlighted');
+		var affected = selected.find('span.red').addClass('highlighted');
+
+		console.clear();
 		console.log('Red spans in divs Highlighted');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 
@@ -137,13 +192,21 @@ $(function(){
 	createa.on('click', function(){
 		var a = $('<a href="http://google.com/">Test link to google</a>');
 		creationlab.append(a);
+
+		console.clear();
 		console.log('link created');
+		console.log('Affected elements: ' + a.count);
+		console.warn(a);
 	});
 
 	createinput.on('click', function(){
 		var input = $('<input type="text" value="testbox" />');
 		creationlab.append(input);
+
+		console.clear();
 		console.log('input created');
+		console.log('Affected elements: ' + input.count);
+		console.warn(input);
 	});
 
 	///////////// Cloning ///////////
@@ -157,14 +220,21 @@ $(function(){
 		clones.addClass('highlighted');
 		clonelab.append(clones);
 
+		console.clear();
 		console.log('Elements cloned');
+		console.log('Affected elements: ' + clones.count);
+		console.warn(clones);
 	});
 
 	clonedeep.on('click', function(){
 		var clones = subjects.clone();
 		clones.addClass('highlighted');
 		clonelab.append(clones);
+
+		console.clear();
 		console.log('Elements cloned deep');
+		console.log('Affected elements: ' + clones.count);
+		console.warn(clones);
 	});
 
 
@@ -182,13 +252,21 @@ $(function(){
 	appendli.on('click', function(){
 		var clone = newli.clone();
 		ul.append(clone);
+
+		console.clear();
 		console.log('Li inserted at end of ul');
+		console.log('Affected elements: ' + clone.count);
+		console.warn(clone);
 	});
 
 	prependli.on('click', function(){
 		var clone = newli.clone();
 		ul.prepend(clone);
+
+		console.clear();
 		console.log('Li inserted at beginning of ul');
+		console.log('Affected elements: ' + clone.count);
+		console.warn(clone);
 	});
 
 
@@ -198,13 +276,21 @@ $(function(){
 		emptylabbutton = $('.empty .emptylab');
 
 	emptypbutton.on('click', function(){
-		emptylab.find('p').empty();
+		var affected = emptylab.find('p').empty();
+
+		console.clear();
 		console.log('paragraph was emptied');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	emptylabbutton.on('click', function(){
-		emptylab.empty();
+		var affected =  emptylab.empty();
+
+		console.clear();
 		console.log('Lab area was emptied');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	///////////// Remove ///////////
@@ -213,13 +299,21 @@ $(function(){
 		removeoddlisbutton = $('.remove .removeoddlis');
 
 	removeoddlisbutton.on('click', function(){
-		removelab.find('li:nth-child(odd)').remove(); //not working
+		var affected = removelab.find('li:nth-child(odd)').remove();
+
+		console.clear();
 		console.log('Odd list items were removed');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	removepbutton.on('click', function(){
-		removelab.find('p').remove();
+		var affected = removelab.find('p').remove();
+
+		console.clear();
 		console.log('paragraph was removed');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	///////////// Get/Set HTML ///////////
@@ -229,13 +323,21 @@ $(function(){
 
 	htmlnewlibutton.on('click', function(){
 		var lis = '<li>1</li><li>2</li><li>3</li><li>4</li>';
-		htmllab.find('ul').html(lis);
+		var affected = htmllab.find('ul').html(lis);
+
+		console.clear();
 		console.log('list items were changed');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	htmlgethtmlbutton.on('click', function(){
 		var h = htmllab.find('p a').html();
+
+		console.clear();
 		console.log('paragraph link html: ' + h);
+		console.log('Affected elements: ' + h.count);
+		console.warn(h);
 	});
 
 	///////////// Attributes ///////////
@@ -246,22 +348,69 @@ $(function(){
 		getemailbutton = $('.attr .getemail');
 
 	setvaluebutton.on('click', function(){
-		attrlab.find('input:first-child').attr('value', 'Kitten');
+		var affected = attrlab.find('input:first-child').attr('value', 'Kitten');
+
+		console.clear();
 		console.log('New value of first box set');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	disableallbutton.on('click', function(){
-		attrlab.find('input').attr('disabled', 'true');
+		var affected = attrlab.find('input').attr('disabled', 'true');
+
+		console.clear();
 		console.log('All boxes disabled');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	enablebutton.on('click', function(){
-		attrlab.find('input').removeAttr('disabled');
+		var affected = attrlab.find('input').removeAttr('disabled');
+
+		console.clear();
 		console.log('All boxes enabled');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
 	});
 
 	getemailbutton.on('click', function(){
-		var email = attrlab.find('input[type="email').attr('value');
+		var email = attrlab.find('input#email').attr('value');
+
+		console.clear();
 		console.log('The email address in the email box: ' + email);
+		console.log('Affected elements: ' + email.count);
+		console.warn(email);
 	});
+
+	///////////// Looping ///////////
+	var eachlab = $('.each .lab'),
+		loopone = $('.each .loopone'),
+		looptwo = $('.each .looptwo');
+
+	loopone.on('click', function(){
+		var affected = eachlab.children().each(function(n){
+			n.style.backgroundColor = 'red';
+		});
+
+		console.clear();
+		console.log('All elements are now red');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
+	});
+
+	looptwo.on('click', function(){
+		var affected = eachlab.children().each(function(n){
+			console.log(n);
+			var c = $(n).clone();
+			eachlab.append(c);
+		});
+
+		console.clear();
+		console.log('All elements have been cloned');
+		console.log('Affected elements: ' + affected.count);
+		console.warn(affected);
+	});
+
+
 });
