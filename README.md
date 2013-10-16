@@ -1,19 +1,19 @@
 Crumbl 
 -----
 
-A tiny Javascript framework that focusses on separation of content, presentation and logic.
+A tiny Javascript framework that focuses on separation of content, presentation and logic.
 
-Crumbl was written to be as small as possible by leaving all the unnecessary functionality behind. Using [Dustin Diaz's qwery](https://github.com/ded/qwery), Crumbl allows you to select the DOM elements you want to work with fast and easy. Crumbl aims to stick to the very essence of what Javascript is for, CSS property-manipulation and transitions are left for CSS to deal with.
+Crumbl was made to be as small as possible by leaving all the unnecessary functionality behind. Using [Dustin Diaz's qwery](https://github.com/ded/qwery), Crumbl allows you to select the Document Object Model (DOM) elements you want to work with quickly and easily. Crumbl sticks to the very essence of Javascript and leaves CSS property--manipulation and transitions for CSS.
 
 ##Documentation
 
-Crumbl can help you with selecting and creating DOM elements, manipulating the DOM, managing element classNames, manage element attributes, manage events and set element values and inside HTML.
+Crumbl can help you select and create DOM elements, manipulate the DOM, manage element classNames, manage element attributes, manage events and set element values inside HTML.
 
 ###Selecting elements
 
 ####Querying elements
 
-You can pass a variety of CSS selectors to Crumbl. You get a Crumbl object back with all nodes that match your selector.
+When you pass a CSS selector to Crumbl, you get a Crumbl object back with all nodes that match your selector.
 
 ``` js
 // basic
@@ -51,7 +51,7 @@ $('div', '#foo'); // another query
 ```
 
 
-###Page ready detection
+###Page-ready detection
 
 *Detect when the DOM is ready for manipulation and fire a callback when this happens.*
 
@@ -68,20 +68,20 @@ $(function(){
 
 ###Creating DOM elements
 
-*Create a DOM element from the given markup.*
+*Creates a DOM element from the given markup*
 
 **Expects:** A piece of valid markup
 
-**Returns:** Crumbl with the given markup as a node.
+**Returns:** Crumbl with the given markup as a node
 
 ``` js
 $('<div><p><a href="http://google.com"></a></p></div>');
 ```
 
 
-###Execute a function on the nodelist
+###Execute a function on the nodes list
 
-*Loop over every element in the nodelist and execute a callback on that element.*
+*Executes a function on every element in the nodes list*
 
 **Expects:** A function to be executed on every element
 
@@ -96,11 +96,11 @@ $('div').each(function(n) {
 
 ###Finding children
 
-*Find all descendants of the elements in the nodelist that match the given selector.*
+*Finds all descendants of elements in the nodes list that match a given selector*
 
 **Expects:** A CSS selector
 
-**Returns:** Crumbl with a new nodelist
+**Returns:** Crumbl with a new nodes list
 
 ``` js
 $('div').find('p');
@@ -109,45 +109,45 @@ $('div').find('p');
 
 ###Traversing
 
-*A fast way to adjust the nodelist to contain immediate relatives to the elements in the nodelist.*
+*Quickly adjusts the nodes list to contain immediate relatives of the elements in the nodes list*
 
 **Expects:** No parameters
 
-**Returns:** Crumbl with a new nodelist
+**Returns:** Crumbl with a new nodes list
 
-Return all direct children of each element in the nodelist
+Returns all direct children of each element in the nodes list
 ``` js
 $('div').children();
 ```
 
-Return all siblings of each element in the nodelist
+Returns all siblings of each element in the nodes list
 ``` js
 $('div').siblings();
 ```
 
-Return the parent of each element in the nodelist
+Returns the parent of each element in the nodes list
 ``` js
 $('div').parent();
 ```
 
-Return the next sibling of each element in the nodelist
+Returns the next sibling of each element in the nodes list
 ``` js
 $('div').next();
 ```
 
-Return the previous sibling of each element in the nodelist
+Returns the previous sibling of each element in the nodes list
 ``` js
 $('div').prev();
 ```
 
 
-###Cloning
+###Cloning elements
 
-*Clone all elements in the nodelist.*
+*Clones all elements in the nodes list*
 
-**Expects:** a boolean that indicates wether or not the descendants of each element should be cloned as well. Default: true.
+**Expects:** A Boolean value that indicates whether or not the descendants of each element should also be cloned. Default: true
 
-**Returns:** Crumbl with a new nodelist
+**Returns:** Crumbl with a new nodes list
 
 ``` js
 $('div').clone();
@@ -156,9 +156,9 @@ $('div').clone();
 
 ###Appending elements
 
-*Append the given element after all children of each element in the nodelist.*
+*Inserts a given element after all children of each element in the nodes list.*
 
-**Expects:** an HTML element
+**Expects:** An HTML element
 
 **Returns:** Crumbl
 
@@ -170,21 +170,21 @@ $('div').append(p);
 
 ###Prepending elements
 
-*Prepend the given element in front of all children of each element in the nodelist.*
+*Prepends a given element before all children of each element in the nodes list.*
 
-**Expects:** an HTML element
+**Expects:** An HTML element
 
 **Returns:** Crumbl
 
 ``` js
-var p = $('<p>An very exciting paragraph</p>');
+var p = $('<p>A very exciting paragraph</p>');
 $('div').prepend(p);
 ```
 
 
 ###Empty elements
 
-*Remove all elements from each element in the nodelist.*
+*Removes all elements from each element in the nodes list*
 
 **Expects:** No parameters
 
@@ -197,7 +197,7 @@ $('div').empty();
 
 ###Remove elements
 
-*Remove each element in the nodelist from its parent.*
+*Removes each element in the nodes list from the DOM*
 
 **Expects:** No parameters
 
@@ -210,28 +210,28 @@ $('div p').remove();
 
 ###Class management
 
-*Lets you apply, remove, toggle and check for classnames on each element in the nodelist.*
+*Lets you apply, remove, toggle and check for classes on each element in the nodes list*
 
-**Expects:** One or more space-seperated classnames
+**Expects:** One or more space-seperated classes
 
-**Returns:** Crumbl, except for .hasClass() which returns a boolean
+**Returns:** Crumbl, except for .hasClass(), which returns a Boolean value
 
-####Add a classname to each element in the nodelist
+####Adds a class to each element in the nodes list
 ``` js
 $('div').addClass('hidden');
 ```
 
-####Remove a classname from each element in the nodelist
+####Removes a class from each element in the nodes list
 ``` js
 $('div').removeClass('hidden');
 ```
 
-####Toggle a classname on each element in the nodelist
+####Toggles a class on each element in the nodes list
 ``` js
 $('div').toggleClass('hidden');
 ```
 
-####Check for the given classname on each element in the nodelist
+####Checks for a given class on each element in the nodes list
 ``` js
 $('div').hasClass('hidden');
 ```
@@ -239,11 +239,11 @@ $('div').hasClass('hidden');
 
 ###Get/Set all HTML of an element
 
-*Get or set all HTML of each element in the nodelist.*
+*Gets or sets all HTML of each element in the nodes list*
 
 **Expects:** A string of valid HTML when setting
 
-**Returns:** An array with an HTML string for each element in the nodelist / Crumbl
+**Returns:** An array with an HTML string for each element in the nodes list / Crumbl
 
 ``` js
 var divHTML = $('div').html();
@@ -253,13 +253,13 @@ $('div').html('<p>A very exciting paragraph</p>');
 
 ###Attribute management
 
-####Adding and updating attributes
+####Adds and updates attributes
 
-*Get or set the given attribute on each element in the nodelist.*
+*Gets or sets the given attribute on each element in the nodes list.*
 
 **Expects:** An attribute name [and value when setting]
 
-**Returns:** An array with a value for the given attribute for each element in the nodelist / Crumbl
+**Returns:** An array with a value for a given attribute for each element in the nodes list / Crumbl
 
 ``` js
 var titles = $('div').attr('title');
@@ -268,7 +268,7 @@ $('div').attr('title', 'My contact information');
 
 ####Removing attributes
 
-*Remove the given attribute from each element in the nodelist.*
+*Removes a given attribute from each element in the nodes list*
 
 **Expects:** An attribute name
 
@@ -281,7 +281,7 @@ $('input').removeAttr('disabled');
 
 ###Event management
 
-*Add or remove an event handler from each element in the nodelist.*
+*Adds or removes an event handler from each element in the nodes list*
 
 **Expects:** An event name and when adding, a callback function
 
@@ -296,11 +296,11 @@ $('button').off('click');
 ```
 
 
-###Node itteration
+###Node iteration
 
-*Itterate over all elements in the nodelist and execute a function each one of them.*
+*Executes a function on every element in the nodes list*
 
-**Expects:** A callback function with one parameter (the node)
+**Expects:** A function with one parameter (the node)
 
 **Returns:** Crumbl
 
