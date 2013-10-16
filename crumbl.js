@@ -177,7 +177,7 @@
 			function _qwery(selector, _root) {
 				var r = [],
 					ret = [],
-					i, l, m, token, tag, els, intr, item, root = _root,
+					i, l, m, token, els, intr, item, root = _root,
 					tokens = tokenCache.g(selector) || tokenCache.s(selector, selector.split(tokenizr)),
 					dividedTokens = selector.match(dividers)
 
@@ -763,7 +763,7 @@
 				each(this.nodes, function(elm) {
 					return fn.apply(elm, arguments);
 				});
-			}2
+			}
 
 			return this;
 		},
