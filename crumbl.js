@@ -1,9 +1,9 @@
-
-// @preserve Crumbl - A lightweight javascript framework
-// https://github.com/glennnaessens/crumbl
-// copyright Glenn Naessens 2013
-// MIT License
-
+/*!
+* @preserve Crumbl - A lightweight javascript framework
+* https://github.com/glennnaessens/crumbl
+* copyright Glenn Naessens 2013
+* MIT License
+*/
 
 (function(w, d, undefined) {
 	'use strict';
@@ -449,8 +449,6 @@
 
 	// Handle standard method value returns
 	function returnValues(values) {
-		values = values.reverse();
-
 		if (values.length === 1) {
 			values = values[0];
 		}
