@@ -16,7 +16,6 @@ $(function(){
 		});
 		testbutton.html('Button that does something');
 
-		console.clear();
 		console.log('Event Attached');
 		console.log('Affected elements: ' + testbutton.count);
 		console.warn(testbutton);
@@ -26,7 +25,6 @@ $(function(){
 		testbutton.off('click');
 		testbutton.html('Button that doesn\'t do anything');
 		
-		console.clear();
 		console.log('Event Detached');
 		console.log('Affected elements: ' + testbutton.count);
 		console.warn(testbutton);
@@ -54,7 +52,6 @@ $(function(){
 			classes += ' ' + el.className;
 		});
 
-		console.clear();
 		console.log('Paragraph class: ' + classes);
 		console.log('Affected elements: ' + testp.count);
 		console.warn(testp);
@@ -67,7 +64,6 @@ $(function(){
 			classes += ' ' + el.className;
 		});
 
-		console.clear();
 		console.log('Paragraph class: ' + classes);
 		console.log('Affected elements: ' + testp.count);
 		console.warn(testp);
@@ -80,14 +76,13 @@ $(function(){
 			classes += ' ' + el.className;
 		});
 
-		console.clear();
 		console.log('Paragraph class: ' + classes);
 		console.log('Affected elements: ' + testp.count);
 		console.warn(testp);
 	});
 
 	has.on('click', function(){
-		console.clear();
+		console.log(testp.hasClass(getSelectedClass()));
 		if(testp.hasClass(getSelectedClass())){
 			console.log('Yes, the paragraph has the "' + getSelectedClass() + '" class.');
 		}else{
@@ -108,7 +103,6 @@ $(function(){
 	next.on('click', function(){
 		var affected = source.next().addClass('highlighted');
 
-		console.clear();
 		console.log('Next Element Highlighted');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -117,7 +111,6 @@ $(function(){
 	previous.on('click', function(){
 		var affected = source.prev().addClass('highlighted');
 
-		console.clear();
 		console.log('Previous Element Highlighted');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -126,7 +119,6 @@ $(function(){
 	siblings.on('click', function(){
 		var affected = source.siblings().addClass('highlighted');
 
-		console.clear();
 		console.log('Sibling Elements Highlighted');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -135,7 +127,6 @@ $(function(){
 	parent.on('click', function(){
 		var affected = source.parent().addClass('highlighted');
 
-		console.clear();
 		console.log('Parent Element Highlighted');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -144,7 +135,6 @@ $(function(){
 	children.on('click', function(){
 		var affected = source.children().addClass('highlighted');
 
-		console.clear();
 		console.log('Child Elements Highlighted');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -159,7 +149,6 @@ $(function(){
 	select.on('click', function(){
 		selected = $('.finding .lab div');
 
-		console.clear();
 		console.log('Grabbed the divs');
 		console.log('Affected elements: ' + selected.count);
 		console.warn(selected);
@@ -168,7 +157,6 @@ $(function(){
 	spansindivs.on('click', function(){
 		var affected = selected.find('span').addClass('highlighted');
 
-		console.clear();
 		console.log('Spans in divs Highlighted');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -177,7 +165,6 @@ $(function(){
 	redspansindivs.on('click', function(){
 		var affected = selected.find('span.red').addClass('highlighted');
 
-		console.clear();
 		console.log('Red spans in divs Highlighted');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -193,7 +180,6 @@ $(function(){
 		var a = $('<a href="http://google.com/">Test link to google</a>');
 		creationlab.append(a);
 
-		console.clear();
 		console.log('link created');
 		console.log('Affected elements: ' + a.count);
 		console.warn(a);
@@ -203,7 +189,6 @@ $(function(){
 		var input = $('<input type="text" value="testbox" />');
 		creationlab.append(input);
 
-		console.clear();
 		console.log('input created');
 		console.log('Affected elements: ' + input.count);
 		console.warn(input);
@@ -220,7 +205,6 @@ $(function(){
 		clones.addClass('highlighted');
 		clonelab.append(clones);
 
-		console.clear();
 		console.log('Elements cloned');
 		console.log('Affected elements: ' + clones.count);
 		console.warn(clones);
@@ -231,7 +215,6 @@ $(function(){
 		clones.addClass('highlighted');
 		clonelab.append(clones);
 
-		console.clear();
 		console.log('Elements cloned deep');
 		console.log('Affected elements: ' + clones.count);
 		console.warn(clones);
@@ -253,7 +236,6 @@ $(function(){
 		var clone = newli.clone();
 		ul.append(clone);
 
-		console.clear();
 		console.log('Li inserted at end of ul');
 		console.log('Affected elements: ' + clone.count);
 		console.warn(clone);
@@ -263,7 +245,6 @@ $(function(){
 		var clone = newli.clone();
 		ul.prepend(clone);
 
-		console.clear();
 		console.log('Li inserted at beginning of ul');
 		console.log('Affected elements: ' + clone.count);
 		console.warn(clone);
@@ -278,7 +259,6 @@ $(function(){
 	emptypbutton.on('click', function(){
 		var affected = emptylab.find('p').empty();
 
-		console.clear();
 		console.log('paragraph was emptied');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -287,7 +267,6 @@ $(function(){
 	emptylabbutton.on('click', function(){
 		var affected =  emptylab.empty();
 
-		console.clear();
 		console.log('Lab area was emptied');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -301,7 +280,6 @@ $(function(){
 	removeoddlisbutton.on('click', function(){
 		var affected = removelab.find('li:nth-child(odd)').remove();
 
-		console.clear();
 		console.log('Odd list items were removed');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -310,7 +288,6 @@ $(function(){
 	removepbutton.on('click', function(){
 		var affected = removelab.find('p').remove();
 
-		console.clear();
 		console.log('paragraph was removed');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -325,7 +302,6 @@ $(function(){
 		var lis = '<li>1</li><li>2</li><li>3</li><li>4</li>';
 		var affected = htmllab.find('ul').html(lis);
 
-		console.clear();
 		console.log('list items were changed');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -334,7 +310,6 @@ $(function(){
 	htmlgethtmlbutton.on('click', function(){
 		var h = htmllab.find('p a').html();
 
-		console.clear();
 		console.log('paragraph link html: ' + h);
 		console.log('Affected elements: ' + h.count);
 		console.warn(h);
@@ -350,7 +325,6 @@ $(function(){
 	setvaluebutton.on('click', function(){
 		var affected = attrlab.find('input:first-child').attr('value', 'Kitten');
 
-		console.clear();
 		console.log('New value of first box set');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -359,7 +333,6 @@ $(function(){
 	disableallbutton.on('click', function(){
 		var affected = attrlab.find('input').attr('disabled', 'true');
 
-		console.clear();
 		console.log('All boxes disabled');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -368,7 +341,6 @@ $(function(){
 	enablebutton.on('click', function(){
 		var affected = attrlab.find('input').removeAttr('disabled');
 
-		console.clear();
 		console.log('All boxes enabled');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -377,7 +349,7 @@ $(function(){
 	getemailbutton.on('click', function(){
 		var email = attrlab.find('input#email');
 
-		console.clear();
+		//console.clear();
 		console.log('The email address in the email box: ' + email.attr('value'));
 		console.log('Affected elements: ' + email.count);
 		console.warn(email);
@@ -393,7 +365,6 @@ $(function(){
 			n.style.backgroundColor = 'red';
 		});
 
-		console.clear();
 		console.log('All elements are now red');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
@@ -406,7 +377,6 @@ $(function(){
 			eachlab.append(c);
 		});
 
-		console.clear();
 		console.log('All elements have been cloned');
 		console.log('Affected elements: ' + affected.count);
 		console.warn(affected);
