@@ -1,6 +1,6 @@
 /*!
 * @preserve Crumbl - A lightweight javascript framework
-* https://github.com/glennnaessens/crumbl
+* http://crumbljs.com/
 * copyright Glenn Naessens 2013
 * MIT License
 */
@@ -655,6 +655,10 @@
 					c = false;
 
 					return null;
+				} else if (selector === w) {
+					console.warn(selector);
+					nodes = [w];
+					c = 1;
 				} else if (selector instanceof Array) {
 					//the nodes have been passed to instantiate a new crumbl object from a
 					//nodes-altering function
@@ -796,6 +800,14 @@
 
 		prev: function() {
 			return new crumbl.methods.init(traverse('previous', this.nodes));
+		},
+
+		only: function() {
+			//returns the first node in the nodelist
+			var el = this.nodes[0];
+			if (el) {
+				return el;
+			}
 		},
 
 
