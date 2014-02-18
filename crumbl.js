@@ -1,5 +1,6 @@
 /*!
 * @preserve Crumbl - A lightweight javascript framework
+* Version 1.0.2
 * http://crumbljs.com/
 * copyright Glenn Naessens 2013
 * MIT License
@@ -656,7 +657,6 @@
 
 					return null;
 				} else if (selector === w) {
-					console.warn(selector);
 					nodes = [w];
 					c = 1;
 				} else if (selector instanceof Array) {
