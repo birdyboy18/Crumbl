@@ -1,3 +1,3 @@
-$.showroom = function (url, method, callback) {
+$.showroom = function (config) {
 
 };

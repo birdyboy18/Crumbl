@@ -24,7 +24,7 @@ $(function(){
 	detach.on('click', function(){
 		testbutton.off('click');
 		testbutton.html('Button that doesn\'t do anything');
-		
+
 		console.log('Event Detached');
 		console.log('Affected elements: ' + testbutton.count);
 		console.warn(testbutton);
@@ -382,4 +382,37 @@ $(function(){
 		console.warn(affected);
 	});
 
+	/////////////////////////////////
+	////////////// Crumbs ///////////
+	/////////////////////////////////
+
+	////////////// Ajax /////////////
+	var ajaxlab = $('.ajax .lab'),
+		ajaxrequest = $('.ajax .ajaxrequest'),
+		ajaxpost = $('.ajax .ajaxpost'),
+		ajaxjsonp = $('.ajax .ajaxjsonp');
+
+	ajaxrequest.on('click', function(){
+		console.log('Ajax Request Sent');
+		$.ajax('resources/ajax.php', function(data, status) {
+			console.log('Ajax GET came back with status code: ' + status);
+			ajaxlab.find('.receiver').html(data);
+		});
+	});
+
+	ajaxpost.on('click', function(){
+		console.log('Ajax Post Sent');
+		$.ajax('resources/ajax.php', function(data, status) {
+			console.log('Ajax POST came back with status code: ' + status);
+			ajaxlab.find('.receiver').html(data);
+		}, 'POST', true, 'postvalue=' + $('.postvalue').only().value);
+	});
+
+	ajaxjsonp.on('click', function(){
+		console.log('Ajax JSONP Sent');
+		$.ajax('http://dev.crumbljs.com/jsonp.php?message=' + $('.postvalue').only().value, function(data, status) {
+			console.log('Ajax JSONP came back with status code: ' + status);
+			ajaxlab.find('.receiver').html(data.message);
+		});
+	});
 });

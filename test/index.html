@@ -28,6 +28,8 @@
 	</header>
 
 	<div>
+		<h1>Core functionality</h1>
+
 		<section class="test event-handlers">
 			<h1><em>Event handlers</em>.on() .off()</h1>
 			<div class="lab">
@@ -226,10 +228,37 @@
 				<button class="looptwo">Clone all elements</button>
 			</div>
 		</section>
+
+		<h1>Crumbs</h1>
+
+		<section class="test ajax">
+			<h1><em>Ajax</em>.ajax()</h1>
+			<div class="lab">
+				<div class="receiver">
+					Result text
+				</div>
+
+				<input type="text" name="postvalue" value="" placeholder="AJAX post value" class="postvalue">
+			</div>
+			<div class="triggers">
+				<label for="nocachetoggle"><input type="checkbox" name="nocachetoggle" id="nocachetoggle">No Caching</label>
+				<button class="ajaxrequest">AJAX request</button>
+				<button class="ajaxpost">AJAX post</button>
+				<button class="ajaxjsonp">AJAX JSONP</button>
+			</div>
+		</section>
 	</div>
 
-	<script src="js/crumbl.js"></script>
-	<script src="js/plugins.min.js"></script>
+	<script src="../crumbl.js"></script>
+
+	<!-- Crumbs -->
+	<script src="../crumbs/ajax/crumbl.ajax.js"></script>
+	<script src="../crumbs/delight/crumbl.delight.js"></script>
+	<script src="../crumbs/forms/crumbl.forms.js"></script>
+	<script src="../crumbs/love/crumbl.love.js"></script>
+	<script src="../crumbs/showroom/crumbl.showroom.js"></script>
+
+	<script src="js/console.js"></script>
 	<script src="js/script.js"></script>
 </body>
 </html>

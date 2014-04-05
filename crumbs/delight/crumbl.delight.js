@@ -1,3 +1,3 @@
-$.delight = function (url, method, callback) {
+$.delight = function (config) {
 
 };
